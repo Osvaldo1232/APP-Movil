@@ -1,0 +1,86 @@
+<ion-content class="fondo">
+  <div class="contenedor">
+
+    <h1 class="titulo">PRÉSTAMOS REGISTRADOS</h1>
+
+    <!-- BARRA DE BÚSQUEDA -->
+ <div class="barra-busqueda">
+
+  <input 
+    type="text" 
+    class="input-buscar"
+    placeholder="Buscar por alumno, matrícula o libro..."
+    [(ngModel)]="searchTerm"
+    (keyup.enter)="buscar()"
+  />
+
+  <div class="botones-derecha">
+    <ion-button (click)="buscar()">Buscar</ion-button>
+    <ion-button color="medium" (click)="limpiar()">Limpiar</ion-button>
+    <ion-button (click)="nuevoPrestamo()">+ Nuevo</ion-button>
+  </div>
+
+</div>
+
+
+    <!-- TABLA -->
+    <div class="tabla-contenedor">
+      <table>
+        <thead>
+          <tr>
+            <th>ALUMNO</th>
+            <th>MATRÍCULA</th>
+            <th>CARRERA</th>
+            <th>LIBRO</th>
+            <th>CANTIDAD</th>
+            <th>F. PRÉSTAMO</th>
+            <th>F. DEVOLUCIÓN</th>
+            <th>ESTATUS</th>
+            <th>ACCIÓN</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let p of prestamosPaginados; let i = index" [class.par]="i % 2 === 0">
+            <td>{{ p.alumnoNombre }} {{ p.apellidoPaterno }} {{ p.apellidoMaterno }}</td>
+            <td>{{ p.matricula }}</td>
+            <td>{{ p.carreraNombre }}</td>
+            <td>{{ p.libroTitulo }}</td>
+            <td>{{ p.cantidad }}</td>
+            <td>{{ p.fechaPrestamo }}</td>
+            <td>{{ p.fechaDevolucion }}</td>
+            <td>{{ p.estatus }}</td>
+
+            <td class="acciones">
+              <ion-icon 
+                name="arrow-undo-outline"
+                style="cursor:pointer; margin-right: 10px; font-size: 22px;"
+                (click)="editarPrestamo(p)">
+              </ion-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PAGINACIÓN -->
+    <div class="paginacion" *ngIf="totalPaginas > 1">
+      <button (click)="irPrimera()" [disabled]="paginaActual === 1">«</button>
+      <button (click)="paginaAnterior()" [disabled]="paginaActual === 1">‹</button>
+
+      <button 
+        *ngFor="let pagina of paginasArray"
+        [class.activa]="paginaActual === pagina"
+        (click)="irPagina(pagina)"
+      >
+        {{ pagina }}
+      </button>
+
+      <button (click)="paginaSiguiente()" [disabled]="paginaActual === totalPaginas">›</button>
+      <button (click)="irUltima()" [disabled]="paginaActual === totalPaginas">»</button>
+    </div>
+
+  </div>
+</ion-content>
+
+<app-loading></app-loading>

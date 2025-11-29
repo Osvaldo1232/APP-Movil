@@ -1,0 +1,67 @@
+<header>
+  <div class="header-left">
+    <span class="menu-text">Panel de Control</span>
+    <button class="toggle-button" (click)="toggleSidebar()">☰</button>
+  </div>
+
+  <div class="header-center">
+    <img src="assets/logoutsem.png" alt="UTSEM" class="logo-utsem" />
+  </div>
+
+  <div class="header-right">{{usuarios?.nombre+ " "+ usuarios?.apellidoPaterno+ " "+ usuarios?.apellidoMaterno}}  </div>
+</header>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <nav class="sidebar" [class.show]="sidebarVisible">
+    <div class="profile-section">
+      <img src="assets/logous.png" alt="Perfil" class="profile-image" />
+      <p class="profile-name">{{usuarios?.nombre}}</p>
+      <p class="profile-role">Administrador</p>
+    </div>
+
+    <ul>
+     
+      <li>
+        <a routerLink="alumnos" routerLinkActive="active" (click)="closeSidebarOnMobile()">Alumnos</a>
+      </li>
+      <li>
+        <a routerLink="carreras" routerLinkActive="active" (click)="closeSidebarOnMobile()">Carreras</a>
+      </li>
+      <li>
+        <a routerLink="libros" routerLinkActive="active" (click)="closeSidebarOnMobile()">Libros</a>
+      </li>
+      <li>
+        <a routerLink="prestamos" routerLinkActive="active" (click)="closeSidebarOnMobile()">Préstamos</a>
+      </li>
+      <li>
+        <a routerLink="prestamos-vencidos" routerLinkActive="active" (click)="closeSidebarOnMobile()">Préstamos Vencidos</a>
+      </li>
+
+      <li>
+        <a routerLink="categorias" routerLinkActive="active" (click)="closeSidebarOnMobile()">Categorias</a>
+      </li>
+
+       <li>
+        <a routerLink="autores" routerLinkActive="active" (click)="closeSidebarOnMobile()">Autores</a>
+      </li>
+
+        <li>
+        <a routerLink="empleado" routerLinkActive="active" (click)="closeSidebarOnMobile()">Empleado</a>
+      </li>
+      <li>
+        <a routerLink="libros-mas-prestados-fecha" routerLinkActive="active" (click)="closeSidebarOnMobile()">Libros Por Fecha</a>
+      </li>
+
+       <li>
+        <a routerLink="libros-mas-prestados" routerLinkActive="active" (click)="closeSidebarOnMobile()">Libros más Prestados</a>
+      </li>
+      <li><a (click)="logout()">Salir</a></li>
+    </ul>
+  </nav>
+
+  <!-- CONTENIDO -->
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
