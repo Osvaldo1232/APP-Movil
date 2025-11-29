@@ -72,13 +72,16 @@ export interface Libros {
   id: string;
   titulo: string;
   autores: string[];    
-  autoresIds: string[];               // Lista de nombres
+  autoresIds: string[];             
   anioPublicacion: number;
   editorial: string;
   copiasDisponibles: number;
   categoriaId: string;
   categoriaNombre: string;
   estatus: 'ACTIVO' | 'INACTIVO';
+
+   imagen: string | null;     
+  sinopsis: string | null; 
 }
 
 

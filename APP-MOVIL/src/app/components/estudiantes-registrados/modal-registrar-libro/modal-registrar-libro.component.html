@@ -5,7 +5,7 @@
     <ion-icon slot="icon-only" name="close"></ion-icon>
   </ion-button>
 
-  <!-- Título dinámico -->
+  <!-- Título -->
   <h2 class="modal-titulo">
     {{ libroEditar ? 'Editar Libro' : 'Registrar Libro' }}
   </h2>
@@ -14,26 +14,26 @@
 
     <!-- Título -->
     <div class="form-group">
-      <ion-input [(ngModel)]="libro.titulo" name="titulo" type="text"
-        placeholder="Título" class="custom-input"></ion-input>
+      <ion-input [(ngModel)]="libro.titulo" name="titulo"
+                 placeholder="Título" class="custom-input"></ion-input>
     </div>
 
-    <!-- AUTORES (MULTISELECT) -->
+    <!-- Autores -->
     <div class="form-group">
       <ion-label>Autores</ion-label>
       <ion-select [(ngModel)]="libro.autores" name="autores" multiple="true"
-        interface="alert" placeholder="Selecciona autores">
+                  interface="alert" placeholder="Selecciona autores">
         <ion-select-option *ngFor="let a of autores" [value]="a.id">
           {{ a.nombre }}
         </ion-select-option>
       </ion-select>
     </div>
 
-    <!-- CATEGORIA -->
+    <!-- Categoría -->
     <div class="form-group">
       <ion-label>Categoría</ion-label>
       <ion-select [(ngModel)]="libro.categoria" name="categoria"
-        interface="popover" placeholder="Selecciona categoría">
+                  interface="popover" placeholder="Selecciona categoría">
         <ion-select-option *ngFor="let c of categorias" [value]="c.id">
           {{ c.nombre }}
         </ion-select-option>
@@ -43,33 +43,52 @@
     <!-- Año -->
     <div class="form-group">
       <ion-input [(ngModel)]="libro.anioPublicacion" name="anioPublicacion"
-        type="number" min="1000" [max]="currentYear"
-        placeholder="Año de Publicación" class="custom-input"></ion-input>
+                 type="number" min="1000" [max]="currentYear"
+                 placeholder="Año de Publicación" class="custom-input"></ion-input>
     </div>
 
     <!-- Editorial -->
     <div class="form-group">
       <ion-input [(ngModel)]="libro.editorial" name="editorial" type="text"
-        placeholder="Editorial" class="custom-input"></ion-input>
+                 placeholder="Editorial" class="custom-input"></ion-input>
     </div>
 
-    <!-- Copias -->
+    <!-- Total Copias -->
     <div class="form-group">
-      <ion-input [(ngModel)]="libro.copiasDisponibles" name="copiasDisponibles"
-        type="number" placeholder="Copias Disponibles" min="0"
-        class="custom-input"></ion-input>
+      <ion-input [(ngModel)]="libro.totalCopias" name="totalCopias"
+                 type="number" min="0" placeholder="Total Copias"
+                 class="custom-input"></ion-input>
     </div>
 
-    <!-- ESTATUS -->
+    <!-- Sinopsis -->
+    <div class="form-group">
+      <ion-textarea [(ngModel)]="libro.sinopsis" name="sinopsis"
+                    placeholder="Sinopsis" class="custom-input"></ion-textarea>
+    </div>
+
+    <!-- Imagen -->
+    <div class="form-group">
+      <ion-label>Imagen del Libro</ion-label>
+      <input type="file" accept="image/*" (change)="convertirImagenBase64($event)">
+    </div>
+
+    <!-- Vista previa -->
+    <div *ngIf="libro.imagenBase64">
+      <img [src]="'data:image/jpeg;base64,' + libro.imagenBase64"
+          style="width: 100%; border-radius: 10px; margin-top: 10px;">
+    </div>
+
+    <!-- Estatus -->
     <div class="form-group">
       <ion-item lines="none">
         <ion-label>Estatus</ion-label>
         <div>{{ libro.estatus ? 'Activo' : 'Inactivo' }}</div>
-        <ion-toggle [(ngModel)]="libro.estatus" name="estatus"
-          color="success"></ion-toggle>
+        <ion-toggle [(ngModel)]="libro.estatus" name="estatus" color="success"></ion-toggle>
       </ion-item>
     </div>
- <div class="botones-container">
+
+    <!-- Botones -->
+    <div class="botones-container">
       <ion-button fill="outline" class="btn-cancelar" (click)="cerrarModal()">
         Cancelar
       </ion-button>
@@ -79,6 +98,6 @@
       </ion-button>
     </div>
 
-   
   </form>
+
 </div>

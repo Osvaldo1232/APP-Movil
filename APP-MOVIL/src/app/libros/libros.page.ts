@@ -4,6 +4,7 @@ import { Libro, Libros } from '../modelos/LoginResponse';
 import { ModalController, ToastController } from '@ionic/angular';
 import { LoadingService } from '../shared/loading-service';
 import { ServiciosApi } from '../Servicios/servicios-api';
+import { AlertService } from '../shared/alert-service';
 
 @Component({
   selector: 'app-libros',
@@ -30,7 +31,9 @@ export class LibrosPage implements OnInit {
     private modalController: ModalController,
     private toastController: ToastController,
     private librosService: ServiciosApi,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+       private alertService:AlertService
+
   ) {}
 
   ngOnInit() {
@@ -157,5 +160,11 @@ async editarLibro(libro: Libro) {
       this.buscar();
     }
   }
+
+  verSinopsis(texto: string | null) {
+  if (!texto) texto = "Sin sinopsis disponible.";
+
+  this.alertService.show(texto, "success", "Sinopsis");
+}
 
 }

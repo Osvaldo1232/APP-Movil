@@ -25,8 +25,11 @@ export class ModalRegistrarLibroComponent implements OnInit {
     categoria: null,
     anioPublicacion: null,
     editorial: '',
-    copiasDisponibles: '',
-    estatus: true
+    totalCopias: '',
+    copiasDisponibles:'',
+    estatus: true,
+    sinopsis: '',
+    imagenBase64: ''
   };
 
   currentYear = new Date().getFullYear();
@@ -53,8 +56,11 @@ export class ModalRegistrarLibroComponent implements OnInit {
       categoria: this.libroEditar.categoriaId,
       anioPublicacion: this.libroEditar.anioPublicacion,
       editorial: this.libroEditar.editorial,
-      copiasDisponibles: this.libroEditar.copiasDisponibles,
-      estatus: this.libroEditar.estatus === 'ACTIVO'
+      copiasDisponibles:this.libroEditar.totalCopias,
+      totalCopias: this.libroEditar.totalCopias,
+      estatus: this.libroEditar.estatus === 'ACTIVO',
+      sinopsis: this.libroEditar.sinopsis || '',
+      imagenBase64: this.libroEditar.imagenBase64 || ''
     };
   }
 
@@ -63,9 +69,14 @@ export class ModalRegistrarLibroComponent implements OnInit {
   }
 
   aceptar() {
-    if (!this.libro.titulo || this.libro.autores.length === 0 ||
-        !this.libro.categoria || !this.libro.anioPublicacion ||
-        !this.libro.editorial || !this.libro.copiasDisponibles) {
+    if (!this.libro.titulo ||
+        this.libro.autores.length === 0 ||
+        !this.libro.categoria ||
+        !this.libro.anioPublicacion ||
+        !this.libro.editorial ||
+        !this.libro.totalCopias ||
+        !this.libro.sinopsis) {
+
       this.alerta.show('Todos los campos son obligatorios', 'warning', 'Error');
       return;
     }
@@ -73,12 +84,15 @@ export class ModalRegistrarLibroComponent implements OnInit {
     const payload = {
       id: this.libroEditar ? this.libroEditar.id : null,
       titulo: this.libro.titulo,
-      autoresIds: this.libro.autores,
-      categoriaId: this.libro.categoria,
       anioPublicacion: Number(this.libro.anioPublicacion),
       editorial: this.libro.editorial,
-      copiasDisponibles: Number(this.libro.copiasDisponibles),
-      estatus: this.libro.estatus ? 'ACTIVO' : 'INACTIVO'
+      totalCopias: Number(this.libro.totalCopias),
+      copiasDisponibles: Number(this.libro.totalCopias),
+      categoriaId: this.libro.categoria,
+      estatus: this.libro.estatus ? 'ACTIVO' : 'INACTIVO',
+      sinopsis: this.libro.sinopsis,
+      imagenBase64: this.libro.imagenBase64,
+      autoresIds: this.libro.autores
     };
 
     if (this.libroEditar) {
@@ -88,7 +102,7 @@ export class ModalRegistrarLibroComponent implements OnInit {
           this.modalController.dismiss({ libroActualizado: payload });
         },
         error: () => {
-          this.alerta.show('Error al actualizar libro', 'danger', 'Error');
+          this.alerta.show('Error al actualizar el libro', 'danger', 'Error');
         }
       });
       return;
@@ -100,7 +114,7 @@ export class ModalRegistrarLibroComponent implements OnInit {
         this.modalController.dismiss({ libro: payload });
       },
       error: () => {
-        this.alerta.show('Error al crear libro', 'danger', 'Error');
+        this.alerta.show('Error al registrar el libro', 'danger', 'Error');
       }
     });
   }
@@ -119,11 +133,22 @@ export class ModalRegistrarLibroComponent implements OnInit {
     });
   }
 
+  convertirImagenBase64(event: any) {
+    const archivo = event.target.files[0];
+    if (!archivo) return;
 
-  mapearAutoresAIds(nombres: string[]) {
-  return this.autores
-    .filter(a => nombres.includes(a.nombre))
-    .map(a => a.id);
-}
+    const lector = new FileReader();
+    lector.onload = () => {
+      let base64 = lector.result as string;
+
+      if (base64.includes(',')) {
+        base64 = base64.substring(base64.indexOf(',') + 1);
+      }
+
+      this.libro.imagenBase64 = base64;
+    };
+
+    lector.readAsDataURL(archivo);
+  }
 
 }
