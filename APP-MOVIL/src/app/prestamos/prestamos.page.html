@@ -9,7 +9,7 @@
   <input 
     type="text" 
     class="input-buscar"
-    placeholder="Buscar por alumno, matrícula o libro..."
+    placeholder="Buscar por usuario"
     [(ngModel)]="searchTerm"
     (keyup.enter)="buscar()"
   />
@@ -29,8 +29,7 @@
         <thead>
           <tr>
             <th>ALUMNO</th>
-            <th>MATRÍCULA</th>
-            <th>CARRERA</th>
+           
             <th>LIBRO</th>
             <th>CANTIDAD</th>
             <th>F. PRÉSTAMO</th>
@@ -42,9 +41,8 @@
 
         <tbody>
           <tr *ngFor="let p of prestamosPaginados; let i = index" [class.par]="i % 2 === 0">
-            <td>{{ p.alumnoNombre }} {{ p.apellidoPaterno }} {{ p.apellidoMaterno }}</td>
-            <td>{{ p.matricula }}</td>
-            <td>{{ p.carreraNombre }}</td>
+            <td>{{ p.nombreUsuario }} {{ p.apellidoPaterno }} {{ p.apellidoMaterno }}</td>
+            
             <td>{{ p.libroTitulo }}</td>
             <td>{{ p.cantidad }}</td>
             <td>{{ p.fechaPrestamo }}</td>
@@ -52,10 +50,22 @@
             <td>{{ p.estatus }}</td>
 
             <td class="acciones">
-              <ion-icon 
+              <ion-icon *ngIf="p.estatus==='PRESTADO'"
                 name="arrow-undo-outline"
                 style="cursor:pointer; margin-right: 10px; font-size: 22px;"
                 (click)="editarPrestamo(p)">
+              </ion-icon>
+
+                <ion-icon *ngIf="p.estatus==='APARTADO'"
+                name="checkmark-circle-outline"
+                style="cursor:pointer; margin-right: 10px; font-size: 22px;"
+                 (click)="cambiarEstatus(p, $event)">
+              </ion-icon>
+
+                <ion-icon *ngIf="p.estatus==='APARTADO'"
+                name="close-circle-outline"
+                style="cursor:pointer; margin-right: 10px; font-size: 22px;"
+                 (click)="cancelar(p, $event)">
               </ion-icon>
             </td>
           </tr>

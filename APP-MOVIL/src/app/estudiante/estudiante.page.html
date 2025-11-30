@@ -1,13 +1,43 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>estudiante</ion-title>
-  </ion-toolbar>
-</ion-header>
+<header>
+  <div class="header-left">
+    <span class="menu-text">Panel de Control</span>
+    <button class="toggle-button" (click)="toggleSidebar()">☰</button>
+  </div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">estudiante</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+  <div class="header-center">
+    <img src="assets/logoutsem.png" alt="UTSEM" class="logo-utsem" />
+  </div>
+
+  <div class="header-right">{{usuarios?.nombreCompleto}}  </div>
+</header>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <nav class="sidebar" [class.show]="sidebarVisible">
+    <div class="profile-section">
+      <img src="assets/logous.png" alt="Perfil" class="profile-image" />
+      <p class="profile-name">{{usuarios?.nombre}}</p>
+      <p class="profile-role">{{usuarios?.rol}}</p>
+    </div>
+
+    <ul>
+     
+     
+      <li>
+        <a routerLink="apartar-libro" routerLinkActive="active" (click)="closeSidebarOnMobile()">Libros</a>
+      </li>
+      <li>
+        <a routerLink="historial-libros" routerLinkActive="active" (click)="closeSidebarOnMobile()">Préstamos</a>
+      </li>
+      
+
+     
+      <li><a (click)="logout()">Salir</a></li>
+    </ul>
+  </nav>
+
+  <!-- CONTENIDO -->
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -13,11 +13,11 @@
     <!-- ========================================= -->
     <div class="form-group">
       <ion-select
-        [(ngModel)]="prestamo.alumnoId"
+        [(ngModel)]="prestamo.usuarioId"
         name="alumnoId"
         interface="alert"
         [interfaceOptions]="alertOptionsAlumnos"
-        placeholder="Seleccionar Alumno"
+        placeholder="Seleccionar usuario"
       >
         <ion-select-option
           *ngFor="let a of alumnos"

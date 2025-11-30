@@ -1,13 +1,70 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>historial-libros</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="ion-padding">
+  <div class="container">
+    <h1 class="titulo-principal">PRESTAMOS SOLICITADOS</h1>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">historial-libros</ion-title>
-    </ion-toolbar>
-  </ion-header>
+   
+
+    <div class="tabla-container">
+      <table class="tabla-estudiantes">
+        <thead>
+          <tr>
+            <th>TITULO</th>
+            <th>AUTORES</th>
+            <th>IMAGEN</th>
+            <th>CANTIDAD</th>
+            <th>FECHA PRESTAMO</th>
+            <th>FECHA DEVOLUCIÓN</th>
+<td>ESTATUS</td>
+            <th>ACCION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr 
+            *ngFor="let estudiante of paginaActualDatos(); let i = index" 
+            [class.fila-par]="i % 2 === 0"
+            [class.fila-impar]="i % 2 !== 0"
+          >
+            <td>{{ estudiante.titulo }}</td>
+            <td>{{ estudiante.autores }}</td>
+              <td>
+             <img *ngIf="estudiante.imagen"
+                   [src]="'data:image/jpeg;base64,' + estudiante.imagen"
+                   style="width:50px; height:70px; object-fit:cover; border-radius:4px;"></td>
+            <td>{{ estudiante.cantidad }}</td>
+            <td>{{ estudiante.fechaPrestamo }}</td>
+            <td>{{ estudiante.fechaDevolucion }}</td>
+            <td>{{ estudiante.estatus }}</td>
+
+            <td *ngIf="estudiante.estatus ==='APARTADO'" class="columna-acciones">
+              <ion-button fill="clear" size="small" >
+                <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+              </ion-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="estudiantesFiltrados.length === 0" class="no-resultados">
+        <p>No se encontraron estudiantes</p>
+      </div>
+
+      <div class="paginacion" *ngIf="totalPaginas > 1">
+        <button (click)="irPrimera()" [disabled]="paginaActual === 1">«</button>
+        <button (click)="paginaAnterior()" [disabled]="paginaActual === 1">‹</button>
+
+        <button 
+          *ngFor="let pagina of paginasArray"
+          [class.activa]="paginaActual === pagina"
+          (click)="irPagina(pagina)"
+        >
+          {{ pagina }}
+        </button>
+
+        <button (click)="paginaSiguiente()" [disabled]="paginaActual === totalPaginas">›</button>
+        <button (click)="irUltima()" [disabled]="paginaActual === totalPaginas">»</button>
+      </div>
+    </div>
+  </div>
 </ion-content>
+
+<app-loading></app-loading>

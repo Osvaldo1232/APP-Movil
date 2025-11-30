@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AdmnistradorPage } from './admnistrador/admnistrador.page';
+import { EstudiantePage } from './estudiante/estudiante.page';
 
 const routes: Routes = [
   {
@@ -88,14 +89,28 @@ const routes: Routes = [
     path: 'estudiante',
     loadChildren: () => import('./estudiante/estudiante.module').then( m => m.EstudiantePageModule)
   },
-  {
+   {
+  path: 'estudiante',
+  component: EstudiantePage,
+  children: [
+     {
     path: 'apartar-libro',
     loadChildren: () => import('./apartar-libro/apartar-libro.module').then( m => m.ApartarLibroPageModule)
   },
-  {
+   {
     path: 'historial-libros',
     loadChildren: () => import('./historial-libros/historial-libros.module').then( m => m.HistorialLibrosPageModule)
-  }
+  },
+ 
+    {
+      path: '',
+      redirectTo: 'apartar-libro',
+      pathMatch: 'full'
+    }
+  ]
+}
+  
+ 
   
 ];
 

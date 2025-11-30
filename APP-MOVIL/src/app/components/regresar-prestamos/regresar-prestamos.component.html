@@ -9,36 +9,24 @@
     <form class="formulario">
 
       <div class="form-group">
+      <ion-label>Usuario</ion-label>
+
         <ion-input
-          [value]="prestamoEditar.alumnoNombre + ' ' + prestamoEditar.apellidoPaterno + ' ' + prestamoEditar.apellidoMaterno"
-          label="Alumno"
+          [value]="prestamoEditar.nombreUsuario + ' ' + prestamoEditar.apellidoPaterno + ' ' + prestamoEditar.apellidoMaterno"
+          label="Usuario"
           labelPlacement="floating"
           readonly
           class="custom-input"
         ></ion-input>
       </div>
 
-      <div class="form-group">
-        <ion-input
-          [value]="prestamoEditar.matricula"
-          label="Matrícula"
-          labelPlacement="floating"
-          readonly
-          class="custom-input"
-        ></ion-input>
-      </div>
+     
+
+      
 
       <div class="form-group">
-        <ion-input
-          [value]="prestamoEditar.carreraNombre"
-          label="Carrera"
-          labelPlacement="floating"
-          readonly
-          class="custom-input"
-        ></ion-input>
-      </div>
+      <ion-label>Titulo Libro</ion-label>
 
-      <div class="form-group">
         <ion-input
           [value]="prestamoEditar.libroTitulo"
           label="Libro"
@@ -49,6 +37,8 @@
       </div>
 
       <div class="form-group">
+      <ion-label>Cantidad Prestada</ion-label>
+
         <ion-input
           [(ngModel)]="prestamoEditar.cantidad"
           name="cantidad"
@@ -62,6 +52,8 @@
       </div>
 
       <div class="form-group">
+      <ion-label>Fecha Prestamo</ion-label>
+
         <ion-input
           [value]="prestamoEditar.fechaPrestamo"
           label="Fecha Préstamo"
@@ -72,6 +64,8 @@
       </div>
 
       <div class="form-group">
+      <ion-label>Fecha devolución</ion-label>
+
         <ion-input
           [(ngModel)]="prestamoEditar.fechaDevolucion"
           name="fechaDevolucion"

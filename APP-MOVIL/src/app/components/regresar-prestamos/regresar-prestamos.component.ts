@@ -24,6 +24,8 @@ export class RegresarPrestamosComponent {
 
   ngOnInit() {
     this.cantidadOriginal = this.prestamoEditar.cantidad;
+
+    console.log(this.prestamoEditar, "prestamoEditar")
   }
 
   validarCantidad() {
@@ -43,12 +45,11 @@ export class RegresarPrestamosComponent {
 
   async aceptar() {
   const idPrestamo = this.prestamoEditar.id;
-  const idLibro = this.prestamoEditar.libroId;
   const cantidadDevuelta = this.prestamoEditar.cantidad;
 
   try {
     const resp = await this.categoriasService
-      .devolverPrestamo(idPrestamo, idLibro, cantidadDevuelta)
+      .devolverPrestamo(idPrestamo, cantidadDevuelta)
       .toPromise();
 
     // Alerta éxito

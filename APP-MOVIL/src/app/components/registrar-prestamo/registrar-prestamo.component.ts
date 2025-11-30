@@ -26,7 +26,7 @@ export class RegistrarPrestamoComponent implements OnInit {
   buscarLibro = '';
 
   prestamo = {
-    alumnoId: '',
+    usuarioId: '',
     libroId: '',
     cantidad: 0,
     fechaDevolucion: ''
@@ -54,7 +54,7 @@ export class RegistrarPrestamoComponent implements OnInit {
   }
 
   cargarAlumnos() {
-    this.servicio.obtenerEstudiantesA().subscribe({
+    this.servicio.obtenerUsuarios().subscribe({
       next: (resp) => {
 
         console.log(resp, "this.alumnos")
@@ -77,7 +77,7 @@ export class RegistrarPrestamoComponent implements OnInit {
   }
  aceptar() {
   if (
-    !this.prestamo.alumnoId ||
+    !this.prestamo.usuarioId ||
     !this.prestamo.libroId ||
     !this.prestamo.cantidad ||
     !this.prestamo.fechaDevolucion

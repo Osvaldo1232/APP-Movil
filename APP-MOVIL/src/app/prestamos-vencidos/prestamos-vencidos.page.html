@@ -11,7 +11,7 @@
       </div>
 
       <div class="filtro-item">
-        <ion-label class="filtro-label">Alumno:</ion-label>
+        <ion-label class="filtro-label">Usuario:</ion-label>
         <ion-select [(ngModel)]="alumnoSeleccionado" interface="popover">
           <ion-select-option value="">Seleccionar Alumno</ion-select-option>
           <ion-select-option *ngFor="let alumno of alumnos" [value]="alumno">
@@ -49,11 +49,10 @@
               <div class="separador"></div>
 
               <div class="info-prestamo">
-                <p><strong>Matrícula:</strong> {{ prestamo.matricula }}</p>
-                <p><strong>Alumno:</strong> 
-                  {{ prestamo.alumnoNombre }} {{ prestamo.apellidoPaterno }} {{ prestamo.apellidoMaterno }}
+                <p><strong>Cantidad:</strong> {{ prestamo.cantidad }}</p>
+                <p><strong>Usuario:</strong> 
+                  {{ prestamo.nombreUsuario }} {{ prestamo.apellidoPaterno }} {{ prestamo.apellidoMaterno }}
                 </p>
-                <p><strong>Carrera:</strong> {{ prestamo.carreraNombre }}</p>
                 <p><strong>Fecha Préstamo:</strong> {{ prestamo.fechaPrestamo }}</p>
                 <p><strong>Fecha Devolución:</strong> {{ prestamo.fechaDevolucion }}</p>
               </div>

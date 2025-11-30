@@ -41,8 +41,8 @@ export class PrestamosVencidosPage implements OnInit {
   }
 
   cargarFiltros() {
-    this.prestamosService.obtenerEstudiantes().subscribe(estudiantes => {
-      this.alumnos = estudiantes.map(e => `${e.nombre}`);
+    this.prestamosService.obtenerUsuarios().subscribe(estudiantes => {
+      this.alumnos = estudiantes.map(e => `${e.titulo}`);
     });
 
     this.prestamosService.obtenerLibros().subscribe(libros => {
@@ -55,6 +55,7 @@ export class PrestamosVencidosPage implements OnInit {
   }
 
   buscarPrestamos() {
+    console.log( this.alumnoSeleccionado," this.alumnoSeleccionado")
     this.loadingService.show();
 
     this.prestamosService.buscarPrestamos(

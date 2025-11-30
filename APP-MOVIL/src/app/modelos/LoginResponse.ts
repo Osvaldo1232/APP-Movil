@@ -95,11 +95,10 @@ export interface Libros {
 
 export interface Prestamo {
   id: string;
-  alumnoNombre: string;
+  nombreUsuario: string;
   apellidoPaterno: string;
   apellidoMaterno: string;
-  matricula: string;
-  carreraNombre: string;
+  
   libroTitulo: string;
   cantidad: number;
   fechaPrestamo: string;      // o Date si prefieres
@@ -120,7 +119,7 @@ export interface PrestamoCrear {
 
 
 export interface PrestamoCre {
-  alumnoId: string;
+  usuarioId: string;
   libroId: string;
   cantidad: number;
   fechaDevolucion: string; // YYYY-MM-DD
@@ -185,4 +184,27 @@ export interface EmpleadoA {
   estatus: "ACTIVO" | "INACTIVO";
   telefono?: string;
   clavePresupuestal?: string;
+}
+
+
+
+export interface LibroAc {
+  id: string;
+  titulo: string;
+  sinopsis: string;
+  copiasDisponibles: number;
+  imagenBase64: string;     // Base64
+  autores: string;    // Si tu API regresa string; si es array, cambia a string[]
+  cantidadSeleccionada: number; // usado solo en el front
+}
+
+
+export interface PrestamoUsuario {
+  titulo: string;
+  imagen: string;          // Base64 desde backend
+  cantidad: number;
+  estatus: string;
+  fechaPrestamo: string;   // ISO string → puede convertirse a Date
+  fechaDevolucion: string;
+  autores: string[];       // lista de autores
 }

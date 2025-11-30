@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Autor, Carrera, Categoria, Combo, EmpleadoA, Estudiante, Estudiantes, Libro, Libros, LoginResponse, Prestamo, PrestamoCre, PrestamoCrear, PrestamoFecha, PrestamoRespuesta, TopLibros, UsuarioDa, UsuarioInfo } from '../modelos/LoginResponse';
+import { Autor, Carrera, Categoria, Combo, EmpleadoA, Estudiante, Estudiantes, Libro, LibroAc, Libros, LoginResponse, Prestamo, PrestamoCre, PrestamoCrear, PrestamoFecha, PrestamoRespuesta, PrestamoUsuario, TopLibros, UsuarioDa, UsuarioInfo } from '../modelos/LoginResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -108,8 +108,8 @@ actualizarCarrera(id: string, carrera: Carrera): Observable<Carrera> {
     return !!this.getToken();
   }
 
-     obtenerEstudiantesA(): Observable<Combo[]> {
-    return this.http.get<Combo[]>(`${this.baseUrlP}/activosAL`);
+     obtenerUsuarios(): Observable<Combo[]> {
+    return this.http.get<Combo[]>(`${this.apiusuario}/activos`);
   }
 
   obtenerEstudiantes(): Observable<Estudiantes[]> {
@@ -174,6 +174,18 @@ actualizarCarrera(id: string, carrera: Carrera): Observable<Carrera> {
     return this.http.get<Libros[]>(this.baseUrlLI);
   }
 
+
+    obtenerLibrosM(titulo?: string): Observable<LibroAc[]> {
+  let params = new HttpParams();
+
+  if (titulo && titulo.trim() !== '') {
+    params = params.set('titulo', titulo.trim());
+  }
+
+  return this.http.get<LibroAc[]>(`${this.baseUrlLI}/LibrosActivos`, { params });
+}
+
+
   obtenerAutores(): Observable<Autor[]> {
     return this.http.get<Autor[]>(this.baseUrlAu);
   }
@@ -185,24 +197,40 @@ actualizarCarrera(id: string, carrera: Carrera): Observable<Carrera> {
     return this.http.put<Autor>(`${this.baseUrlAu}/${id}`, autor);
   }
 
-  registrarPrestamo(data: PrestamoCre): Observable<PrestamoRespuesta> {
-    return this.http.post<PrestamoRespuesta>(this.apiUrl, data);
+
+  Apartar(data: PrestamoCre): Observable<PrestamoRespuesta> {
+    return this.http.post<PrestamoRespuesta>( `${this.apiUrl}/apartar`, data);
   }
 
-  devolverPrestamo(idPrestamo: string, idLibro: string, cantidadDevuelta: number) {
+   PrestamosUsuarios(usuarioId: string): Observable<PrestamoUsuario[]> {
+    return this.http.get<PrestamoUsuario[]>(`${this.apiUrl}/usuario/${usuarioId}`);
+  }
+
+     Confirmar(usuarioId: string): Observable<PrestamoUsuario[]> {
+    return this.http.put<PrestamoUsuario[]>(`${this.apiUrl}/confirmar-apartado/${usuarioId}`, null);
+  }
+cancelar(usuarioId: string): Observable<PrestamoUsuario[]> {
+    return this.http.put<PrestamoUsuario[]>(`${this.apiUrl}/cancelar-prestamo/${usuarioId}`, null);
+}
+
+  registrarPrestamo(data: PrestamoCre): Observable<PrestamoRespuesta> {
+    return this.http.post<PrestamoRespuesta>( `${this.apiUrl}/crear`, data);
+  }
+
+  devolverPrestamo(idPrestamo: string,  cantidadDevuelta: number) {
   const url = `${this.apiUrl}/${idPrestamo}/devolver`;
 
   const params = {
-    cantidadDevuelta: cantidadDevuelta,
-    idLibro: idLibro
+    cantidad: cantidadDevuelta,
+   
   };
 
-  return this.http.put(url, null, { params });
+  return this.http.post(url, null, { params });
 }
 
  buscarPrestamos(
     fechaPrestamo: string,
-    alumnoNombre: string,
+    usuarioNombre: string,
     libroTitulo: string,
     
     estatus: string = 'VENCIDO'
@@ -211,11 +239,11 @@ actualizarCarrera(id: string, carrera: Carrera): Observable<Carrera> {
     let params = new HttpParams();
 
     if (fechaPrestamo) params = params.set('fechaPrestamo', fechaPrestamo);
-    if (alumnoNombre) params = params.set('alumnoNombre', alumnoNombre);
+    if (usuarioNombre) params = params.set('usuarioNombre', usuarioNombre);
     if (libroTitulo) params = params.set('libroTitulo', libroTitulo);
     if (estatus) params = params.set('estatus', estatus);
 
-    return this.http.get(`${this.apiUrl}/buscar`, { params });
+    return this.http.get(`${this.apiUrl}/filtrar`, { params });
   }
 
    obtenerTop10Fechas(): Observable<PrestamoFecha[]> {

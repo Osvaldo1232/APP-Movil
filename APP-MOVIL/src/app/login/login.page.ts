@@ -30,7 +30,6 @@ export class LoginPage {
           this.router.navigate(['/empleado']);
           break;
         case 'ALUMNO':
-        case 'MAESTRO':
           this.router.navigate(['/estudiante']);
           break;
         default:

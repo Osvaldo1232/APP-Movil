@@ -5,6 +5,8 @@ import { Prestamo } from '../modelos/LoginResponse';
 import { ModalController, ToastController } from '@ionic/angular';
 import { ServiciosApi } from '../Servicios/servicios-api';
 import { LoadingService } from '../shared/loading-service';
+import { AlertService } from '../shared/alert-service';
+import { AlertaConfirmacionService } from '../shared/alerta-confirmacion-service';
 
 @Component({
   selector: 'app-prestamos',
@@ -29,7 +31,10 @@ export class PrestamosPage implements OnInit {
     private modalController: ModalController,
     private toastController: ToastController,
     private servicio: ServiciosApi,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+
+    private alertService: AlertService,
+    private alerta: AlertaConfirmacionService
   ) {}
 
   ngOnInit() {
@@ -61,8 +66,7 @@ export class PrestamosPage implements OnInit {
       this.prestamosFiltrados = [...this.prestamos];
     } else {
       this.prestamosFiltrados = this.prestamos.filter(p =>
-        (p.alumnoNombre + ' ' + p.apellidoPaterno + ' ' + p.apellidoMaterno).toLowerCase().includes(texto) ||
-        p.matricula.toLowerCase().includes(texto) ||
+        (p.nombreUsuario + ' ' + p.apellidoPaterno + ' ' + p.apellidoMaterno).toLowerCase().includes(texto) ||
         p.libroTitulo.toLowerCase().includes(texto)
       );
     }
@@ -159,4 +163,79 @@ export class PrestamosPage implements OnInit {
     this.cargarPrestamos();
   }
 
+    async cambiarEstatus(alumno: any, event: Event) {
+      console.log(alumno.id, "alumno")
+    event.preventDefault();
+    
+    const confirmado = await this.alerta.mostrar(
+      `¿Estás seguro de prestar el libro solicitado?`
+    );
+    if (!confirmado) {
+      return; 
+    }
+    this.loadingService.show();
+
+    this.servicio.Confirmar(alumno.id).subscribe({
+      next: (res) => {
+       
+
+        this.alertService.show(
+          `El libro se ha confirmado correctamente`,
+          'success',
+          'Éxito'
+        );
+    this.cargarPrestamos();
+
+        this.loadingService.hide();
+      },
+      error: (err) => {
+        this.alertService.show(
+          'Error al prestar el libro',
+          'danger',
+          'Error'
+        );
+    this.cargarPrestamos();
+
+        this.loadingService.hide();
+      }
+    });
+  }
+
+
+   async cancelar(alumno: any, event: Event) {
+    event.preventDefault();
+    
+    const confirmado = await this.alerta.mostrar(
+      `¿Estás seguro de cancelar el libro solicitado?`
+    );
+    if (!confirmado) {
+      return; 
+    }
+    this.loadingService.show();
+
+    this.servicio.cancelar(alumno.id).subscribe({
+      next: (res) => {
+       
+
+        this.alertService.show(
+          `El libro se ha cancelado correctamente`,
+          'success',
+          'Éxito'
+        );
+    this.cargarPrestamos();
+
+        this.loadingService.hide();
+      },
+      error: (err) => {
+        this.alertService.show(
+          'Error al cancelar el libro',
+          'danger',
+          'Error'
+        );
+    this.cargarPrestamos();
+
+        this.loadingService.hide();
+      }
+    });
+  }
 }

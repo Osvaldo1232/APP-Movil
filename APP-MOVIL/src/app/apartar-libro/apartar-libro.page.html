@@ -1,13 +1,80 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>apartar-libro</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="fondo">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">apartar-libro</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <h1 class="titulo">Catálogo de Libros</h1>
+
+
+  
+  <!-- 🔍 BARRA DE BÚSQUEDA -->
+  <div class="busqueda-container">
+    
+    <ion-input 
+      placeholder="Buscar libro por título..."
+      [(ngModel)]="filtroTitulo"
+      class="busqueda-input">
+    </ion-input>
+
+    <ion-button (click)="buscarLibros()">
+      Buscar
+    </ion-button>
+
+    <ion-button (click)="limpiarBusqueda()">
+      Limpiar
+    </ion-button>
+  </div>
+
+  <!-- 📚 GRID DE LIBROS -->
+  <div class="libros-grid">
+
+    <div class="book-card" *ngFor="let libro of libros">
+
+      <!-- LIBRO (efecto 3D) -->
+      <div class="book">
+        <img class="cover" 
+             [src]="'data:image/jpeg;base64,' + libro.imagenBase64"
+             alt="Portada del libro">
+
+        <div class="book-lomo"></div>
+      </div>
+
+      <!-- 📘 INFORMACIÓN -->
+      <div class="info">
+        <h2 class="titulo-libro">{{ libro.titulo }}</h2>
+
+        <p class="autor">
+         Autores: {{ libro.autores }}
+        </p>
+
+        <p class="sinopsis">
+      Sipnosis:    {{ libro.sinopsis }}
+        </p>
+
+        <p class="copias">
+          Disponibles: <strong>{{ libro.copiasDisponibles }}</strong>
+        </p>
+
+        <ion-item class="cantidad-item">
+          <ion-input type="number"
+                     min="1"
+                     [max]="libro.copiasDisponibles"
+                     [(ngModel)]="libro.cantidadSeleccionada">
+          </ion-input>
+        </ion-item>
+
+        <ion-button expand="block"
+          
+            [disabled]="
+              !libro.cantidadSeleccionada ||
+              libro.cantidadSeleccionada < 1 ||
+              libro.cantidadSeleccionada > libro.copiasDisponibles
+            "
+            (click)="apartarlo(libro)">
+  Apartar
+</ion-button>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </ion-content>
