@@ -121,7 +121,7 @@ export class LibrosPage implements OnInit {
   }
 
 async editarLibro(libro: Libro) {
-
+console.log(libro, "Osv")
   const modal = await this.modalController.create({
     component: ModalRegistrarLibroComponent,
     componentProps: { libroEditar: libro },

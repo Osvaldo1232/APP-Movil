@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Estudiante } from '../modelos/LoginResponse';
+import { Estudiante, Estudiantes } from '../modelos/LoginResponse';
 import { ModalRegistrarEstudianteComponent } from '../components/estudiantes-registrados/modal-registrar-estudiante/modal-registrar-estudiante.component';
 import { ModalController, ToastController } from '@ionic/angular';
 import { LoadingService } from '../shared/loading-service';
@@ -15,11 +15,10 @@ import { ServiciosApi } from '../Servicios/servicios-api';
 export class AlumnosPage implements OnInit {
 
  
-  estudiantes: Estudiante[] = [];
-  estudiantesFiltrados: Estudiante[] = [];
+  estudiantes: Estudiantes[] = [];
+  estudiantesFiltrados: Estudiantes[] = [];
   busqueda: string = '';
 
-  // 📄 PAGINADO
   paginaActual = 1;
   itemsPorPagina = 10;
   totalPaginas = 1;
@@ -51,7 +50,6 @@ export class AlumnosPage implements OnInit {
     });
   }
 
-  // 🔎 Buscar SOLO cuando se da clic
   buscar() {
     if (this.busqueda.trim() === '') {
       this.estudiantesFiltrados = [...this.estudiantes];
@@ -59,8 +57,7 @@ export class AlumnosPage implements OnInit {
       const t = this.busqueda.toLowerCase();
       this.estudiantesFiltrados = this.estudiantes.filter((est) =>
         (`${est.nombre} ${est.apellidoPaterno} ${est.apellidoMaterno}`).toLowerCase().includes(t) ||
-        est.matricula.toLowerCase().includes(t) ||
-        est.carreraNombre.toLowerCase().includes(t)
+        est.matricula.toLowerCase().includes(t) 
       );
     }
 
@@ -75,7 +72,6 @@ export class AlumnosPage implements OnInit {
     this.configurarPaginado();
   }
 
-  // 📄 CONFIGURAR PAGINADO
   configurarPaginado() {
     this.totalPaginas = Math.ceil(this.estudiantesFiltrados.length / this.itemsPorPagina);
     this.paginasArray = Array.from({ length: this.totalPaginas }, (_, i) => i + 1);
@@ -107,7 +103,6 @@ export class AlumnosPage implements OnInit {
     this.paginaActual = this.totalPaginas;
   }
 
-  // 🟦 Nuevo estudiante
   async agregarNuevo() {
     const modal = await this.modalController.create({
       component: ModalRegistrarEstudianteComponent,
@@ -124,8 +119,7 @@ export class AlumnosPage implements OnInit {
     }
   }
 
-  // ✏ Editar estudiante
-  async editarEstudiante(estudiante: Estudiante) {
+  async editarEstudiante(estudiante: Estudiantes) {
     const modal = await this.modalController.create({
       component: ModalRegistrarEstudianteComponent,
       componentProps: { estudiante: { ...estudiante } },

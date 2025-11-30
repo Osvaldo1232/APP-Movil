@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Estudiante } from '../modelos/LoginResponse';
+import { EmpleadoA, Estudiante, Estudiantes } from '../modelos/LoginResponse';
 import { ModalController, ToastController } from '@ionic/angular';
 import { ServiciosApi } from '../Servicios/servicios-api';
 import { LoadingService } from '../shared/loading-service';
@@ -15,11 +15,10 @@ import { RegistrarEmpleadoComponent } from '../components/registrar-empleado/reg
 export class EmpleadoPage implements OnInit {
 
   
-    estudiantes: Estudiante[] = [];
-    estudiantesFiltrados: Estudiante[] = [];
+    estudiantes: EmpleadoA[] = [];
+    estudiantesFiltrados: EmpleadoA[] = [];
     busqueda: string = '';
   
-    // 📄 PAGINADO
     paginaActual = 1;
     itemsPorPagina = 10;
     totalPaginas = 1;
@@ -38,7 +37,7 @@ export class EmpleadoPage implements OnInit {
   
     cargarEstudiantes() {
       this.loadingService.show();
-      this.servicio.obtenerEstudiantes().subscribe({
+      this.servicio.obtenerEmpleado().subscribe({
         next: (data) => {
           this.estudiantes = data;
           this.estudiantesFiltrados = [...data];
@@ -51,16 +50,13 @@ export class EmpleadoPage implements OnInit {
       });
     }
   
-    // 🔎 Buscar SOLO cuando se da clic
     buscar() {
       if (this.busqueda.trim() === '') {
         this.estudiantesFiltrados = [...this.estudiantes];
       } else {
         const t = this.busqueda.toLowerCase();
         this.estudiantesFiltrados = this.estudiantes.filter((est) =>
-          (`${est.nombre} ${est.apellidoPaterno} ${est.apellidoMaterno}`).toLowerCase().includes(t) ||
-          est.matricula.toLowerCase().includes(t) ||
-          est.carreraNombre.toLowerCase().includes(t)
+          (`${est.nombre} ${est.apellidoPaterno} ${est.apellidoMaterno}`).toLowerCase().includes(t)
         );
       }
   
@@ -75,7 +71,6 @@ export class EmpleadoPage implements OnInit {
       this.configurarPaginado();
     }
   
-    // 📄 CONFIGURAR PAGINADO
     configurarPaginado() {
       this.totalPaginas = Math.ceil(this.estudiantesFiltrados.length / this.itemsPorPagina);
       this.paginasArray = Array.from({ length: this.totalPaginas }, (_, i) => i + 1);
@@ -107,7 +102,6 @@ export class EmpleadoPage implements OnInit {
       this.paginaActual = this.totalPaginas;
     }
   
-    // 🟦 Nuevo estudiante
     async agregarNuevo() {
       const modal = await this.modalController.create({
         component: RegistrarEmpleadoComponent,
@@ -124,11 +118,12 @@ export class EmpleadoPage implements OnInit {
       }
     }
   
-    // ✏ Editar estudiante
-    async editarEstudiante(estudiante: Estudiante) {
+    async editarEstudiante(empleado: EmpleadoA) {
+
+      console.log(empleado, "estudiante")
       const modal = await this.modalController.create({
         component: RegistrarEmpleadoComponent,
-        componentProps: { estudiante: { ...estudiante } },
+        componentProps: { empleado: { ...empleado } },
         cssClass: 'modal-registrar-estudiante',
         backdropDismiss: false,
       });
@@ -136,7 +131,7 @@ export class EmpleadoPage implements OnInit {
       await modal.present();
       const { data } = await modal.onWillDismiss();
   
-      if (data && data.estudiante) {
+      if (data && data.empleado) {
         this.cargarEstudiantes();
       }
     }

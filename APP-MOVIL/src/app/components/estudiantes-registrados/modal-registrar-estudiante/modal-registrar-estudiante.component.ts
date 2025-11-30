@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { AlertService } from 'src/app/shared/alert-service';
-import { Carrera, Combo, Estudiante } from 'src/app/modelos/LoginResponse';
+import { Combo } from 'src/app/modelos/LoginResponse';
 import { ServiciosApi } from 'src/app/Servicios/servicios-api';
 
 @Component({
@@ -22,93 +22,89 @@ export class ModalRegistrarEstudianteComponent implements OnInit {
     apellidoPaterno: '',
     apellidoMaterno: '',
     matricula: '',
+    email: '',
+    password: '',
+    fechaNacimiento: '',
+    sexo: 'MASCULINO',
+    estatus: 'ACTIVO',
     carreraId: '',
-    carreraNombre: '',
-    estatus: 'ACTIVO'
+    carreraNombre: ''
   };
 
   carreras: Combo[] = [];
-
+activar=true;
   constructor(
     private modalController: ModalController,
     private estudiantesService: ServiciosApi,
     private alertService: AlertService
   ) {}
- ngOnInit() {
+
+  ngOnInit() {
     this.cargarCarreras();
+
+    if(this.estudiante.id!=null){
+      this.activar=false;
+    }
   }
 
   cargarCarreras() {
     this.estudiantesService.obtenerCarrerasA().subscribe({
       next: (data) => {
         this.carreras = data;
-        console.log( this.carreras, " this.carreras")
       },
-      error: (err) => {
-        console.error('Error al cargar carreras:', err);
+      error: () => {
         this.alertService.show('No se pudieron cargar las carreras', 'danger', 'Error');
       }
     });
   }
+
   cerrarModal() {
     this.modalController.dismiss();
   }
 
   aceptar() {
-    const estudiantePayload: Estudiante = {
+
+    const estudiantePayload = {
       id: this.estudiante.id,
       nombre: this.estudiante.nombre,
       apellidoPaterno: this.estudiante.apellidoPaterno,
       apellidoMaterno: this.estudiante.apellidoMaterno,
       matricula: this.estudiante.matricula,
-      carreraId: this.estudiante.carreraId,
-      carreraNombre: this.obtenerCarreraNombre(this.estudiante.carreraId),
-      estatus: this.estudiante.estatus || 'ACTIVO'
+      email: this.estudiante.email,
+      password: this.estudiante.password,
+      fechaNacimiento: this.estudiante.fechaNacimiento,
+      sexo: this.estudiante.sexo,
+      estatus: this.estudiante.estatus,
     };
 
     if (this.estudiante.id) {
-      // Editar estudiante
       this.estudiantesService.actualizarEstudiante(this.estudiante.id, estudiantePayload)
         .subscribe({
           next: (resp) => {
-            this.alertService.show(
-              'El estudiante se actualizó correctamente',
-              'success',
-              'Éxito'
-            );
+            this.alertService.show('El estudiante se actualizó correctamente', 'success', 'Éxito');
             this.modalController.dismiss({ estudiante: resp });
           },
           error: (err) => {
-            if(err.status==500){
-            this.alertService.show(err.error.error, 'danger', 'Error');
+              this.alertService.show('El estudiante se actualizó correctamente', 'success', 'Éxito');
 
-            }
+             this.modalController.dismiss({ estudiante: true });
+              this.cerrarModal();
+
           }
         });
     } else {
-      // Crear estudiante
       this.estudiantesService.crearEstudiante(estudiantePayload)
         .subscribe({
           next: (resp) => {
-            this.alertService.show(
-              'El estudiante se registró correctamente',
-              'success',
-              'Éxito'
-            );
+            this.alertService.show('El estudiante se registró correctamente', 'success', 'Éxito');
             this.modalController.dismiss({ estudiante: resp });
           },
           error: (err) => {
-            if(err.status==500){
             this.alertService.show(err.error.error, 'danger', 'Error');
-
-            }
           }
         });
     }
   }
 
-  private obtenerCarreraNombre(carreraId: string): string {
-    const carrera = this.carreras.find(c => c.id === carreraId);
-    return carrera ? carrera.titulo : '';
-  }
+ 
 }

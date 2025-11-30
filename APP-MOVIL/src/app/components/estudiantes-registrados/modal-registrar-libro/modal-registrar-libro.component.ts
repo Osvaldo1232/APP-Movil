@@ -50,17 +50,19 @@ export class ModalRegistrarLibroComponent implements OnInit {
   }
 
   cargarDatosParaEditar() {
+
+    console.log(this.libroEditar, "boh ")
     this.libro = {
       titulo: this.libroEditar.titulo,
       autores: this.libroEditar.autoresIds || [],
       categoria: this.libroEditar.categoriaId,
       anioPublicacion: this.libroEditar.anioPublicacion,
       editorial: this.libroEditar.editorial,
-      copiasDisponibles:this.libroEditar.totalCopias,
+      copiasDisponibles:this.libroEditar.copiasDisponibles,
       totalCopias: this.libroEditar.totalCopias,
       estatus: this.libroEditar.estatus === 'ACTIVO',
       sinopsis: this.libroEditar.sinopsis || '',
-      imagenBase64: this.libroEditar.imagenBase64 || ''
+      imagenBase64: this.libroEditar.imagen || ''
     };
   }
 

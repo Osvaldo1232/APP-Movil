@@ -1,115 +1,107 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Combo, Estudiante } from 'src/app/modelos/LoginResponse';
+import { Combo, EmpleadoA } from 'src/app/modelos/LoginResponse';
 import { ServiciosApi } from 'src/app/Servicios/servicios-api';
 import { AlertService } from 'src/app/shared/alert-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+
 @Component({
   selector: 'app-registrar-empleado',
   templateUrl: './registrar-empleado.component.html',
   styleUrls: ['./registrar-empleado.component.scss'],
+  standalone: true,
   imports: [CommonModule, FormsModule, IonicModule],
-
 })
-export class RegistrarEmpleadoComponent  implements OnInit {
+export class RegistrarEmpleadoComponent implements OnInit {
 
- 
-  @Input() estudiante: any = {
-    id: null,
+  @Input() empleado: EmpleadoA = {
+    id: undefined as any,
     nombre: '',
     apellidoPaterno: '',
     apellidoMaterno: '',
-    matricula: '',
-    carreraId: '',
-    carreraNombre: '',
-    estatus: 'ACTIVO'
+    email: '',
+    password: '',
+    fechaNacimiento: '',
+    sexo: 'MASCULINO',
+    estatus: 'ACTIVO',
+    telefono: '',
+    clavePresupuestal: ''
   };
 
+  activar = true;
   carreras: Combo[] = [];
 
   constructor(
     private modalController: ModalController,
-    private estudiantesService: ServiciosApi,
+    private empleadosService: ServiciosApi,
     private alertService: AlertService
   ) {}
- ngOnInit() {
-    this.cargarCarreras();
+
+  ngOnInit() {
+    if (this.empleado && this.empleado.id) {
+      this.activar = false;
+    } else {
+      this.activar = true;
+      this.empleado.estatus = this.empleado.estatus || 'ACTIVO';
+      this.empleado.sexo = this.empleado.sexo || 'MASCULINO';
+    }
   }
 
-  cargarCarreras() {
-    this.estudiantesService.obtenerCarrerasA().subscribe({
-      next: (data) => {
-        this.carreras = data;
-        console.log( this.carreras, " this.carreras")
-      },
-      error: (err) => {
-        console.error('Error al cargar carreras:', err);
-        this.alertService.show('No se pudieron cargar las carreras', 'danger', 'Error');
-      }
-    });
-  }
   cerrarModal() {
     this.modalController.dismiss();
   }
 
-  aceptar() {
-    const estudiantePayload: Estudiante = {
-      id: this.estudiante.id,
-      nombre: this.estudiante.nombre,
-      apellidoPaterno: this.estudiante.apellidoPaterno,
-      apellidoMaterno: this.estudiante.apellidoMaterno,
-      matricula: this.estudiante.matricula,
-      carreraId: this.estudiante.carreraId,
-      carreraNombre: this.obtenerCarreraNombre(this.estudiante.carreraId),
-      estatus: this.estudiante.estatus || 'ACTIVO'
+  guardarEmpleado() {
+    const empleadoPayload: any = {
+      nombre: this.empleado.nombre,
+      apellidoPaterno: this.empleado.apellidoPaterno,
+      apellidoMaterno: this.empleado.apellidoMaterno,
+      email: this.empleado.email,
+      password: this.empleado.password,
+      fechaNacimiento: this.empleado.fechaNacimiento,
+      sexo: this.empleado.sexo,
+      estatus: this.empleado.estatus,
+      telefono: this.empleado.telefono,
+      clavePresupuestal: this.empleado.clavePresupuestal
     };
 
-    if (this.estudiante.id) {
-      // Editar estudiante
-      this.estudiantesService.actualizarEstudiante(this.estudiante.id, estudiantePayload)
+    if (this.empleado && this.empleado.id) {
+      empleadoPayload.id = this.empleado.id;
+    }
+
+    if (this.empleado && this.empleado.id) {
+      this.empleadosService.actualizarempleado(this.empleado.id, empleadoPayload)
         .subscribe({
-          next: (resp) => {
-            this.alertService.show(
-              'El estudiante se actualizó correctamente',
-              'success',
-              'Éxito'
-            );
+         next: (resp) => {
+            this.alertService.show('El empleado se actualizó correctamente', 'success', 'Éxito');
             this.modalController.dismiss({ estudiante: resp });
           },
           error: (err) => {
-            if(err.status==500){
-            this.alertService.show(err.error.error, 'danger', 'Error');
-
-            }
+           this.alertService.show('El empleado se actualizó correctamente', 'success', 'Éxito');
+            this.modalController.dismiss({ estudiante: true });
           }
         });
     } else {
-      // Crear estudiante
-      this.estudiantesService.crearEstudiante(estudiantePayload)
+      this.empleadosService.crearempleado(empleadoPayload)
         .subscribe({
-          next: (resp) => {
-            this.alertService.show(
-              'El estudiante se registró correctamente',
-              'success',
-              'Éxito'
-            );
-            this.modalController.dismiss({ estudiante: resp });
+          next: (resp: any) => {
+            if (typeof resp === 'string') {
+              this.alertService.show(resp, 'success', 'Éxito');
+              this.modalController.dismiss({ empleado: true });
+            } else {
+              const msg = resp.message || 'El empleado se registró correctamente';
+              this.alertService.show(msg, 'success', 'Éxito');
+              const enviado = resp.empleado || resp || true;
+              this.modalController.dismiss({ empleado: enviado });
+            }
           },
           error: (err) => {
-            if(err.status==500){
-            this.alertService.show(err.error.error, 'danger', 'Error');
-
-            }
+            const errMsg = err?.error ?? err?.message ?? 'Error al crear';
+            this.alertService.show(typeof errMsg === 'string' ? errMsg : (errMsg.error || 'Error'), 'danger', 'Error');
           }
         });
     }
   }
-
-  private obtenerCarreraNombre(carreraId: string): string {
-    const carrera = this.carreras.find(c => c.id === carreraId);
-    return carrera ? carrera.titulo : '';
-  }
-
 }

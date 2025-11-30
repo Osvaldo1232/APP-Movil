@@ -2,7 +2,6 @@
   <div class="container">
     <h1 class="titulo-principal">ESTUDIANTES REGISTRADOS</h1>
 
-    <!-- 🔍 Barra de búsqueda -->
     <div class="barra-busqueda">
       <ion-input
         [(ngModel)]="busqueda"
@@ -23,15 +22,15 @@
       </ion-button>
     </div>
 
-    <!-- 📋 Tabla -->
     <div class="tabla-container">
       <table class="tabla-estudiantes">
         <thead>
           <tr>
             <th>MATRICULA</th>
             <th>NOMBRE</th>
-            <th>APELLIDOS</th>
-            <th>CARRERA</th>
+            <th>APELLIDO MATERNO</th>
+            <th>APELLIDO PATERNO</th>
+
             <th>ACCION</th>
           </tr>
         </thead>
@@ -43,8 +42,8 @@
           >
             <td>{{ estudiante.matricula }}</td>
             <td>{{ estudiante.nombre }}</td>
-            <td>{{ estudiante.apellidoPaterno }} {{ estudiante.apellidoMaterno }}</td>
-            <td>{{ estudiante.carreraNombre }}</td>
+            <td>{{ estudiante.apellidoPaterno }} </td>
+            <td>{{ estudiante.apellidoMaterno }}</td>
             <td class="columna-acciones">
               <ion-button fill="clear" size="small" (click)="editarEstudiante(estudiante)">
                 <ion-icon slot="icon-only" name="create-outline"></ion-icon>
@@ -54,12 +53,10 @@
         </tbody>
       </table>
 
-      <!-- ❌ No resultados -->
       <div *ngIf="estudiantesFiltrados.length === 0" class="no-resultados">
         <p>No se encontraron estudiantes</p>
       </div>
 
-      <!-- 📄 Paginado -->
       <div class="paginacion" *ngIf="totalPaginas > 1">
         <button (click)="irPrimera()" [disabled]="paginaActual === 1">«</button>
         <button (click)="paginaAnterior()" [disabled]="paginaActual === 1">‹</button>

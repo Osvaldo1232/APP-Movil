@@ -51,9 +51,8 @@ export class ModalRegistrarCarreraComponent {
 );
           },
           error: (err) => {
-             if(err.status==500){
+             if(err.status==400){
             let mensaje = err.error.error;
-            console.log(mensaje)
                 this.alertService.show(
   mensaje,
   'danger',
@@ -75,9 +74,8 @@ export class ModalRegistrarCarreraComponent {
             this.modalController.dismiss({ carrera: resp });
           },
           error: (err) => {
-            if(err.status==500){
+            if(err.status==400){
             let mensaje = err.error.error;
-            console.log(mensaje)
                 this.alertService.show(
   mensaje,
   'danger',

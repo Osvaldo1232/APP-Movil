@@ -1,97 +1,64 @@
 <div class="modal-container">
-  <!-- Botón cerrar (X) -->
-  <ion-button 
-    fill="clear" 
-    class="btn-cerrar" 
-    (click)="cerrarModal()"
-  >
+
+  <ion-button fill="clear" class="btn-cerrar" (click)="cerrarModal()">
     <ion-icon slot="icon-only" name="close"></ion-icon>
   </ion-button>
 
-  <!-- Título -->
-  <h2 class="modal-titulo">Registrar Estudiante</h2>
+  <h2 class="modal-titulo">
+    {{ estudiante.id ? 'Editar Estudiante' : 'Registrar Estudiante' }}
+  </h2>
 
-  <!-- Formulario -->
   <form class="formulario">
-    <!-- Matrícula -->
+
     <div class="form-group">
-      <ion-input
-        [(ngModel)]="estudiante.matricula"
-        name="matricula"
-        type="text"
-        placeholder="Matrícula"
-        class="custom-input"
-      ></ion-input>
+      <ion-input [(ngModel)]="estudiante.matricula" name="matricula" placeholder="Matrícula"></ion-input>
     </div>
 
-    <!-- Nombre -->
     <div class="form-group">
-      <ion-input
-        [(ngModel)]="estudiante.nombre"
-        name="nombre"
-        type="text"
-        placeholder="Nombre"
-        class="custom-input"
-      ></ion-input>
+      <ion-input [(ngModel)]="estudiante.nombre" name="nombre" placeholder="Nombre"></ion-input>
     </div>
 
-    <!-- Apellido Paterno -->
     <div class="form-group">
-      <ion-input
-        [(ngModel)]="estudiante.apellidoPaterno"
-        name="apellidoPaterno"
-        type="text"
-        placeholder="Apellido paterno"
-        class="custom-input"
-      ></ion-input>
+      <ion-input [(ngModel)]="estudiante.apellidoPaterno" name="apellidoPaterno" placeholder="Apellido paterno"></ion-input>
     </div>
 
-    <!-- Apellido Materno -->
     <div class="form-group">
-      <ion-input
-        [(ngModel)]="estudiante.apellidoMaterno"
-        name="apellidoMaterno"
-        type="text"
-        placeholder="Apellido materno"
-        class="custom-input"
-      ></ion-input>
+      <ion-input [(ngModel)]="estudiante.apellidoMaterno" name="apellidoMaterno" placeholder="Apellido materno"></ion-input>
     </div>
 
-    <!-- Carrera -->
     <div class="form-group">
-      <ion-select
-        [(ngModel)]="estudiante.carreraId"
-        name="carreraId"
-        interface="popover"
-        placeholder="Seleccionar carrera"
-        class="custom-select"
-      >
-        <ion-select-option 
-          *ngFor="let carrera of carreras" 
-          [value]="carrera.id"
-        >
-          {{ carrera.titulo }}
-        </ion-select-option>
+      <ion-input [(ngModel)]="estudiante.email" name="email" type="email" placeholder="Correo electrónico"></ion-input>
+    </div>
+
+    <div *ngIf="activar" class="form-group">
+      <ion-input [(ngModel)]="estudiante.password" name="password" type="password" placeholder="Contraseña"></ion-input>
+    </div>
+
+    <div class="form-group">
+      <ion-input [(ngModel)]="estudiante.fechaNacimiento" name="fechaNacimiento" type="date"></ion-input>
+    </div>
+
+    <div class="form-group">
+      <ion-select [(ngModel)]="estudiante.sexo" name="sexo">
+        <ion-select-option value="MASCULINO">Masculino</ion-select-option>
+        <ion-select-option value="FEMENINO">Femenino</ion-select-option>
       </ion-select>
     </div>
 
-
-     <div class="estado-toggle-container">
-      <div class="estado-toggle">
-        <span class="estado-titulo">Estatus:</span>
-        <span class="estado-label">{{ estudiante.activo ? 'ACTIVO' : 'ACTIVO' }}</span>
-        <ion-toggle [(ngModel)]="estudiante.activo" name="activo" color="success"></ion-toggle>
-      </div>
+   
+    
+    <div class="estado-toggle">
+      <span>Estatus:</span>
+      <ion-toggle [(ngModel)]="estudiante.estatus" name="estatus"
+        [checked]="estudiante.estatus === 'ACTIVO'"
+        (ionChange)="estudiante.estatus = $event.detail.checked ? 'ACTIVO' : 'INACTIVO'">
+      </ion-toggle>
     </div>
-    <!-- Botones -->
+
     <div class="botones-container">
-      <ion-button fill="outline" class="btn-cancelar" (click)="cerrarModal()">
-        Cancelar
-      </ion-button>
-
-      <ion-button fill="solid" class="btn-aceptar" (click)="aceptar()">
-        Aceptar
-      </ion-button>
+      <ion-button fill="outline" (click)="cerrarModal()">Cancelar</ion-button>
+      <ion-button fill="solid" (click)="aceptar()">Aceptar</ion-button>
     </div>
+
   </form>
 </div>

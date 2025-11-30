@@ -18,14 +18,16 @@ export interface Combo {
 }
 
 
-export interface Estudiante {
+export interface Estudiantes {
   id?: string;
   nombre: string;
   apellidoPaterno: string;
   apellidoMaterno: string;
   matricula: string;
-  carreraId: string;
-  carreraNombre: string;
+  email:string,
+password:string,
+fechaNacimiento:string,
+sexo:string,
   estatus: string; // "ACTIVO" o "INACTIVO"
 }
 
@@ -65,6 +67,9 @@ export interface Libro {
   categoriaId: string;
   categoriaNombre: string;
   estatus: string;             // ACTIVO | INACTIVO
+
+   imagen: string | null;     
+
 }
 
 
@@ -76,6 +81,8 @@ export interface Libros {
   anioPublicacion: number;
   editorial: string;
   copiasDisponibles: number;
+  totalCopias: number;
+
   categoriaId: string;
   categoriaNombre: string;
   estatus: 'ACTIVO' | 'INACTIVO';
@@ -161,4 +168,21 @@ export interface UsuarioDa {
   estatus: string;          
   departamento: string;
   telefono: string;
+}
+
+
+
+
+export interface EmpleadoA {
+  id?: string;                 // Opcional → solo en edición
+  nombre: string;
+  apellidoPaterno: string;
+  apellidoMaterno: string;
+  email: string;
+  password?: string;           // Opcional → no obligatorio al editar
+  fechaNacimiento: string;     // YYYY-MM-DD
+  sexo: "MASCULINO" | "FEMENINO";
+  estatus: "ACTIVO" | "INACTIVO";
+  telefono?: string;
+  clavePresupuestal?: string;
 }

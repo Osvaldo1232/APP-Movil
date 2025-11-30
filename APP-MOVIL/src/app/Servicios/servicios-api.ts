@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Autor, Carrera, Categoria, Combo, Estudiante, Libro, Libros, LoginResponse, Prestamo, PrestamoCre, PrestamoCrear, PrestamoFecha, PrestamoRespuesta, TopLibros, UsuarioDa, UsuarioInfo } from '../modelos/LoginResponse';
+import { Autor, Carrera, Categoria, Combo, EmpleadoA, Estudiante, Estudiantes, Libro, Libros, LoginResponse, Prestamo, PrestamoCre, PrestamoCrear, PrestamoFecha, PrestamoRespuesta, TopLibros, UsuarioDa, UsuarioInfo } from '../modelos/LoginResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -21,11 +21,14 @@ private apiUrl = 'http://localhost:8000/prestamos';
   private apiusuario = 'http://localhost:8000/usuarios';
  private baseUrlc = 'http://localhost:8000/carreras';
  private baseUrlA = 'http://localhost:8000/alumnos';
+ private baseUrlP = 'http://localhost:8000/Profesores';
+
  private baseUrlC = 'http://localhost:8000/categorias';
  private baseUrlAu = 'http://localhost:8000/autores';
+  constructor(private http: HttpClient, private router: Router) { }
 
-obtenerUsuarioLogueado(id: string): Observable<UsuarioDa> {
-    return this.http.get<UsuarioDa>(`${this.apiusuario}/BuscarUsuario/${id}`);
+obtenerUsuarioLogueado(id: string): Observable<UsuarioInfo> {
+    return this.http.get<UsuarioInfo>(`${this.apiusuario}/info/${id}`);
   }
  crearCarrera(carrera: Carrera): Observable<Carrera> {
   return this.http.post<Carrera>(`${this.baseUrlc}`, carrera);
@@ -56,7 +59,6 @@ actualizarCarrera(id: string, carrera: Carrera): Observable<Carrera> {
 
   
 
-  constructor(private http: HttpClient, private router: Router) { }
 
   login(email: string, password: string): Observable<LoginResponse> {
     const body = { email, password };
@@ -101,25 +103,43 @@ actualizarCarrera(id: string, carrera: Carrera): Observable<Carrera> {
     return localStorage.getItem('token');
   }
 
+  
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
 
-  obtenerEstudiantes(): Observable<Estudiante[]> {
-    return this.http.get<Estudiante[]>(this.baseUrlA);
+     obtenerEstudiantesA(): Observable<Combo[]> {
+    return this.http.get<Combo[]>(`${this.baseUrlP}/activosAL`);
   }
-   obtenerEstudiantesA(): Observable<Combo[]> {
-    return this.http.get<Combo[]>(`${this.baseUrlA}/activosAL`);
+
+  obtenerEstudiantes(): Observable<Estudiantes[]> {
+    return this.http.get<Estudiantes[]>(`${this.baseUrlP}/alumnos`);
   }
 
 
-  crearEstudiante(estudiante: Estudiante): Observable<Estudiante> {
-    return this.http.post<Estudiante>(this.baseUrlA, estudiante);
+  crearEstudiante(estudiante: Estudiantes): Observable<Estudiantes> {
+    return this.http.post<Estudiantes>(`${this.apiusuario}/alumno`, estudiante);
   }
 
-  actualizarEstudiante(id: string, estudiante: Estudiante): Observable<Estudiante> {
-    return this.http.put<Estudiante>(`${this.baseUrlA}/${id}`, estudiante);
+  actualizarEstudiante(id: string, estudiante: Estudiantes): Observable<Estudiantes> {
+    return this.http.put<Estudiantes>(`${this.baseUrlP}/alumno/${id}`, estudiante);
   }
+
+
+
+  obtenerEmpleado(): Observable<EmpleadoA[]> {
+    return this.http.get<EmpleadoA[]>(`${this.baseUrlP}`);
+  }
+
+
+  crearempleado(empleado: EmpleadoA): Observable<EmpleadoA> {
+    return this.http.post<EmpleadoA>(`${this.apiusuario}/empleado`, empleado);
+  }
+
+  actualizarempleado(id: string, empleado: EmpleadoA): Observable<EmpleadoA> {
+    return this.http.put<EmpleadoA>(`${this.baseUrlP}/empleado/${id}`, empleado);
+  }
+
 
 
 

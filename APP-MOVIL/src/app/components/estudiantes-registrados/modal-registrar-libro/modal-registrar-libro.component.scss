@@ -180,3 +180,19 @@ ion-select {
     color: #333;
   }
 }
+
+
+.imagen-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.imagen-libro {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%; /* Redondo */
+  object-fit: cover; /* Ajusta sin deformar */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* Sombra elegante */
+  border: 3px solid #e0e0e0; /* Borde ligero */
+}

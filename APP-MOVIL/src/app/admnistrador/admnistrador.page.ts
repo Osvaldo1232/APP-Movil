@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UsuarioDa } from '../modelos/LoginResponse';
+import { UsuarioDa, UsuarioInfo } from '../modelos/LoginResponse';
 import { ServiciosApi } from '../Servicios/servicios-api';
 
 @Component({
@@ -16,13 +16,15 @@ export class AdmnistradorPage implements OnInit {
   sidebarVisible: boolean = true;
   isMobile: boolean = false;
 logueado:any;
-usuarios!: UsuarioDa;
+usuarios!: UsuarioInfo;
   usuario:any;
   constructor(private router: Router, private loginService: ServiciosApi ) {}
 
   ngOnInit() {
     this.checkScreenSize();
+    this.loginService.logueado();
 
+    this.logueado=this.loginService.logueado();
      this.loginService.obtenerUsuarioLogueado(this.logueado).subscribe({
       next: (data) => {
         this.usuarios = data;
