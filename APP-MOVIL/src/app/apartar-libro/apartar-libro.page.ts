@@ -48,7 +48,6 @@ logueado:any;
 
 apartarlo(libro: LibroAc) {
   
-console.log(libro, "phoi")
   const fechaActual = new Date();
   fechaActual.setDate(fechaActual.getDate() + 10);
   const fechaDevolucion = formatDate(fechaActual, 'yyyy-MM-dd', 'en-US');

@@ -55,7 +55,6 @@ export class PrestamosVencidosPage implements OnInit {
   }
 
   buscarPrestamos() {
-    console.log( this.alumnoSeleccionado," this.alumnoSeleccionado")
     this.loadingService.show();
 
     this.prestamosService.buscarPrestamos(

@@ -65,7 +65,6 @@ export class ModalesRegistrarCategoriaComponent implements OnInit {
       this.categoriasService.crearCategoria({ nombre: this.categoria.nombre })
         .subscribe({
           next: async (resp) => {
-            console.log("ojij")
 
            this.alerta.show(
               'La categoria se guardo con exito',
@@ -75,7 +74,6 @@ export class ModalesRegistrarCategoriaComponent implements OnInit {
             this.modalController.dismiss({ categoria: resp });
           },
           error: async () => {
-            console.log("ojij")
              this.alerta.show(
               'Ya existe una categoría con ese nombre',
               'danger',

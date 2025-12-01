@@ -4,7 +4,6 @@
 
 
   
-  <!-- 🔍 BARRA DE BÚSQUEDA -->
   <div class="busqueda-container">
     
     <ion-input 
@@ -22,12 +21,10 @@
     </ion-button>
   </div>
 
-  <!-- 📚 GRID DE LIBROS -->
   <div class="libros-grid">
 
     <div class="book-card" *ngFor="let libro of libros">
 
-      <!-- LIBRO (efecto 3D) -->
       <div class="book">
         <img class="cover" 
              [src]="'data:image/jpeg;base64,' + libro.imagenBase64"
@@ -36,7 +33,6 @@
         <div class="book-lomo"></div>
       </div>
 
-      <!-- 📘 INFORMACIÓN -->
       <div class="info">
         <h2 class="titulo-libro">{{ libro.titulo }}</h2>
 

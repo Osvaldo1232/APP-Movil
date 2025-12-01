@@ -51,7 +51,6 @@ export class ModalRegistrarLibroComponent implements OnInit {
 
   cargarDatosParaEditar() {
 
-    console.log(this.libroEditar, "boh ")
     this.libro = {
       titulo: this.libroEditar.titulo,
       autores: this.libroEditar.autoresIds || [],

@@ -57,7 +57,6 @@ export class RegistrarPrestamoComponent implements OnInit {
     this.servicio.obtenerUsuarios().subscribe({
       next: (resp) => {
 
-        console.log(resp, "this.alumnos")
         this.alumnos = resp;
       }
     });

@@ -164,7 +164,6 @@ export class PrestamosPage implements OnInit {
   }
 
     async cambiarEstatus(alumno: any, event: Event) {
-      console.log(alumno.id, "alumno")
     event.preventDefault();
     
     const confirmado = await this.alerta.mostrar(

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AdmnistradorPage } from './admnistrador/admnistrador.page';
 import { EstudiantePage } from './estudiante/estudiante.page';
+import { DashboardempleadoPage } from './dashboardempleado/dashboardempleado.page';
 
 const routes: Routes = [
   {
@@ -78,18 +79,7 @@ const routes: Routes = [
 ,
   
  
-  
-
   {
-    path: 'admnistrador',
-    loadChildren: () => import('./admnistrador/admnistrador.module').then( m => m.AdmnistradorPageModule)
-  },
- 
-  {
-    path: 'estudiante',
-    loadChildren: () => import('./estudiante/estudiante.module').then( m => m.EstudiantePageModule)
-  },
-   {
   path: 'estudiante',
   component: EstudiantePage,
   children: [
@@ -108,7 +98,49 @@ const routes: Routes = [
       pathMatch: 'full'
     }
   ]
-}
+},
+  {
+  path: 'dashboardempleado',
+  component: DashboardempleadoPage,
+  children: [
+     {
+    path: 'libros-mas-prestados',
+    loadChildren: () => import('./libros-mas-prestados/libros-mas-prestados.module').then( m => m.LibrosMasPrestadosPageModule)
+  },
+  {
+    path: 'libros-mas-prestados-fecha',
+    loadChildren: () => import('./libros-mas-prestados-fecha/libros-mas-prestados-fecha.module').then( m => m.LibrosMasPrestadosFechaPageModule)
+  },
+  {
+    path: 'prestamos',
+    loadChildren: () => import('./prestamos/prestamos.module').then( m => m.PrestamosPageModule)
+  },
+  {
+    path: 'prestamos-vencidos',
+    loadChildren: () => import('./prestamos-vencidos/prestamos-vencidos.module').then( m => m.PrestamosVencidosPageModule)
+  },
+ 
+    {
+      path: '',
+      redirectTo: 'prestamos',
+      pathMatch: 'full'
+    }
+  ]
+},
+  {
+    path: 'admnistrador',
+    loadChildren: () => import('./admnistrador/admnistrador.module').then( m => m.AdmnistradorPageModule)
+  },
+ 
+  {
+    path: 'estudiante',
+    loadChildren: () => import('./estudiante/estudiante.module').then( m => m.EstudiantePageModule)
+  },
+  {
+    path: 'dashboardempleado',
+    loadChildren: () => import('./dashboardempleado/dashboardempleado.module').then( m => m.DashboardempleadoPageModule)
+  },
+   
   
  
   

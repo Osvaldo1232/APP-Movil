@@ -25,7 +25,6 @@ export class RegresarPrestamosComponent {
   ngOnInit() {
     this.cantidadOriginal = this.prestamoEditar.cantidad;
 
-    console.log(this.prestamoEditar, "prestamoEditar")
   }
 
   validarCantidad() {

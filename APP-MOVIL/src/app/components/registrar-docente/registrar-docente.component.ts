@@ -40,7 +40,6 @@ export class RegistrarDocenteComponent  implements OnInit {
     this.estudiantesService.obtenerCarrerasA().subscribe({
       next: (data) => {
         this.carreras = data;
-        console.log( this.carreras, " this.carreras")
       },
       error: (err) => {
         console.error('Error al cargar carreras:', err);
@@ -64,45 +63,7 @@ export class RegistrarDocenteComponent  implements OnInit {
       estatus: this.estudiante.estatus || 'ACTIVO'
     };
 
-    if (this.estudiante.id) {
-      // Editar estudiante
-      this.estudiantesService.actualizarEstudiante(this.estudiante.id, estudiantePayload)
-        .subscribe({
-          next: (resp) => {
-            this.alertService.show(
-              'El estudiante se actualizó correctamente',
-              'success',
-              'Éxito'
-            );
-            this.modalController.dismiss({ estudiante: resp });
-          },
-          error: (err) => {
-            if(err.status==500){
-            this.alertService.show(err.error.error, 'danger', 'Error');
-
-            }
-          }
-        });
-    } else {
-      // Crear estudiante
-      this.estudiantesService.crearEstudiante(estudiantePayload)
-        .subscribe({
-          next: (resp) => {
-            this.alertService.show(
-              'El estudiante se registró correctamente',
-              'success',
-              'Éxito'
-            );
-            this.modalController.dismiss({ estudiante: resp });
-          },
-          error: (err) => {
-            if(err.status==500){
-            this.alertService.show(err.error.error, 'danger', 'Error');
-
-            }
-          }
-        });
-    }
+   
   }
 
   private obtenerCarreraNombre(carreraId: string): string {

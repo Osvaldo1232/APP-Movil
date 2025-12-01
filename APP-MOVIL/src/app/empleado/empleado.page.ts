@@ -120,7 +120,6 @@ export class EmpleadoPage implements OnInit {
   
     async editarEstudiante(empleado: EmpleadoA) {
 
-      console.log(empleado, "estudiante")
       const modal = await this.modalController.create({
         component: RegistrarEmpleadoComponent,
         componentProps: { empleado: { ...empleado } },

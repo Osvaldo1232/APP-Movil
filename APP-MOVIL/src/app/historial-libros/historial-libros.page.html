@@ -35,11 +35,17 @@
             <td>{{ estudiante.fechaDevolucion }}</td>
             <td>{{ estudiante.estatus }}</td>
 
-            <td *ngIf="estudiante.estatus ==='APARTADO'" class="columna-acciones">
-              <ion-button fill="clear" size="small" >
-                <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-              </ion-button>
-            </td>
+            <td class="columna-acciones">
+  <ion-button 
+    *ngIf="estudiante.estatus === 'APARTADO'" 
+    fill="clear" 
+    size="small"
+    (click)="cancelar(estudiante, $event)"
+  >
+    <ion-icon slot="icon-only" name="close-circle-outline"></ion-icon>
+  </ion-button>
+</td>
+
           </tr>
         </tbody>
       </table>

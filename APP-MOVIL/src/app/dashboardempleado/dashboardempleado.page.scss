@@ -1,4 +1,6 @@
-
+/* ======================= */
+/*        RESET GENERAL     */
+/* ======================= */
 * {
   margin: 0;
   padding: 0;
@@ -11,7 +13,9 @@ body, html {
   background-color: #f4f4f4;
 }
 
-
+/* ======================= */
+/*          HEADER          */
+/* ======================= */
 header {
   width: 100%;
   height: 60px;
@@ -40,6 +44,7 @@ header {
   line-height: 1;
 }
 
+/* Botón ☰ */
 .toggle-button {
   background: none;
   border: none;
@@ -56,6 +61,7 @@ header {
   transform: scale(1.1);
 }
 
+/* Imagen centrada */
 .header-center {
   display: flex;
   justify-content: center;
@@ -68,12 +74,15 @@ header {
   object-fit: contain;
 }
 
+/* Texto del usuario */
 .header-right {
   font-weight: normal;
   font-size: 16px;
 }
 
-
+/* ======================= */
+/*          LAYOUT          */
+/* ======================= */
 .layout {
   display: flex;
   height: calc(100vh - 60px);
@@ -81,6 +90,9 @@ header {
   overflow: hidden;
 }
 
+/* ======================= */
+/*          SIDEBAR         */
+/* ======================= */
 .sidebar {
   width: 250px;
   background-color: #2d0404;
@@ -110,7 +122,9 @@ header {
   background-color: #530909;
 }
 
-
+/* ======================= */
+/*     PERFIL EN SIDEBAR   */
+/* ======================= */
 .profile-section {
   text-align: center;
   padding: 30px 10px 20px;
@@ -140,7 +154,9 @@ header {
   margin: 0;
 }
 
-
+/* ======================= */
+/*     CONTENIDO PRINCIPAL */
+/* ======================= */
 .main-content {
   flex: 1;
   background-color: #f4f4f4;
@@ -149,6 +165,10 @@ header {
   transition: all 0.3s ease-in-out;
 }
 
+/* ======================= */
+/*     ESTADO: OCULTO       */
+/* ======================= */
+/* Oculta el sidebar en cualquier tamaño cuando sidebarVisible = false */
 .sidebar-hidden .sidebar {
   transform: translateX(-100%);
 }
@@ -157,7 +177,9 @@ header {
   width: 100%;
 }
 
-
+/* ======================= */
+/*     BOTÓN FLOTANTE (opcional) */
+/* ======================= */
 .floating-button {
   position: fixed;
   top: 70px;
@@ -172,6 +194,9 @@ header {
   border-radius: 4px;
 }
 
+/* ======================= */
+/*     RESPONSIVE DESIGN   */
+/* ======================= */
 @media (max-width: 768px) {
   header {
     font-size: 16px;
@@ -182,6 +207,7 @@ header {
     font-size: 14px;
   }
 
+  /* Sidebar oculto por defecto en móviles */
   .sidebar {
     position: fixed;
     height: 100vh;
@@ -191,14 +217,17 @@ header {
     z-index: 1200;
   }
 
+  /* Cuando se active */
   .sidebar.show {
     transform: translateX(0);
   }
 
+  /* El contenido ocupa todo el ancho */
   .main-content {
     width: 100%;
   }
 
+  /* Efecto overlay opcional */
   .overlay {
     position: fixed;
     top: 60px;
@@ -225,7 +254,7 @@ header {
   color: white;
   transition: transform 0.3s ease-in-out;
   flex-shrink: 0;
-  height: calc(100vh - 60px); 
-  overflow-y: auto;          
+  height: calc(100vh - 60px); /* ALTURA EXACTA BAJO EL HEADER */
+  overflow-y: auto;          /* ← ACTIVAMOS EL SCROLL VERTICAL */
   overflow-x: hidden;
 }

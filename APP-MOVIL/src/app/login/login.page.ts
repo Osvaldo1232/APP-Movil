@@ -27,7 +27,7 @@ export class LoginPage {
           this.router.navigate(['/admnistrador']);
           break;
         case 'EMPLEADO':
-          this.router.navigate(['/empleado']);
+          this.router.navigate(['/dashboardempleado']);
           break;
         case 'ALUMNO':
           this.router.navigate(['/estudiante']);

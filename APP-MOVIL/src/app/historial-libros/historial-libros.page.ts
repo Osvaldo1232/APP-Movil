@@ -3,6 +3,8 @@ import { Estudiantes, PrestamoUsuario } from '../modelos/LoginResponse';
 import { ServiciosApi } from '../Servicios/servicios-api';
 import { ModalController, ToastController } from '@ionic/angular';
 import { LoadingService } from '../shared/loading-service';
+import { AlertaConfirmacionService } from '../shared/alerta-confirmacion-service';
+import { AlertService } from '../shared/alert-service';
 
 @Component({
   selector: 'app-historial-libros',
@@ -27,7 +29,10 @@ export class HistorialLibrosPage implements OnInit {
      private modalController: ModalController,
      private toastController: ToastController,
      private servicio: ServiciosApi,
-     private loadingService: LoadingService
+     private loadingService: LoadingService,
+      private alertService: AlertService,
+         private alerta: AlertaConfirmacionService
+     
    ) {}
  
    ngOnInit() {
@@ -106,8 +111,45 @@ export class HistorialLibrosPage implements OnInit {
    }
  
  
- 
+  async cancelar(alumno: any, event: Event) {
+    event.preventDefault();
+    
+    const confirmado = await this.alerta.mostrar(
+      `¿Estás seguro de cancelar el libro solicitado?`
+    );
+    if (!confirmado) {
+      return; 
+    }
+    this.loadingService.show();
+
+    this.servicio.cancelar(alumno.id).subscribe({
+      next: (res) => {
+       
+
+        this.alertService.show(
+          `El libro se ha cancelado correctamente`,
+          'success',
+          'Éxito'
+        );
+     this.cargarEstudiantes();
+
+        this.loadingService.hide();
+      },
+      error: (err) => {
+        this.alertService.show(
+          'Error al cancelar el libro',
+          'danger',
+          'Error'
+        );
+     this.cargarEstudiantes();
+
+
+        this.loadingService.hide();
+      }
+    });
+  }
 
  
+  
 
 }
