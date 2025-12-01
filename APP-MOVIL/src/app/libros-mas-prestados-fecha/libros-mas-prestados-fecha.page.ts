@@ -57,7 +57,7 @@ export class LibrosMasPrestadosFechaPage implements OnInit {
             maintainAspectRatio: false,
              layout: {
       padding: {
-        top: 50 // Más espacio arriba
+        top: 50
       }
     },
             plugins: {
@@ -99,12 +99,12 @@ export class LibrosMasPrestadosFechaPage implements OnInit {
       meta.data.forEach((bar: any, index: number) => {
         const valor = dataset.data[index];
 
-        ctx.fillStyle = "#000"; // color del texto
+        ctx.fillStyle = "#000"; 
         ctx.font = "12px Arial";
         ctx.textAlign = "center";
 
         const x = bar.x;
-        const y = bar.y - 5; // arriba de la barra
+        const y = bar.y - 5; 
 
         ctx.fillText(valor, x, y);
       });
@@ -116,15 +116,13 @@ export class LibrosMasPrestadosFechaPage implements OnInit {
   async exportarPDF() {
   const element = this.graficaContainer.nativeElement;
 
-  // Convertir a imagen usando html2canvas
   const canvas = await html2canvas(element, {
-    scale: 3, // mayor resolución
+    scale: 3,
     useCORS: true
   });
 
   const imgData = canvas.toDataURL('image/png');
 
-  // Crear PDF en formato vertical tamaño carta
   const pdf = new jsPDF({
     orientation: 'landscape',
     unit: 'px',
@@ -134,7 +132,6 @@ export class LibrosMasPrestadosFechaPage implements OnInit {
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
 
-  // Ajustar imagen para que llene toda la hoja
   pdf.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight);
 
   pdf.save('grafica-prestamos.pdf');

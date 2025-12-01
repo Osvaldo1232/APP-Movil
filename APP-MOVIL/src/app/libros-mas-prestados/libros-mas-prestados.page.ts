@@ -25,7 +25,6 @@ leyenda: any[] = [];
     this.cargarDatos();
   }
 
-  // Plugin para mostrar valores encima de cada barra
  mostrarValoresPlugin = {
   id: 'mostrarValores',
   afterDatasetsDraw(chart: any) {
@@ -37,12 +36,12 @@ leyenda: any[] = [];
       meta.data.forEach((bar: any, index: number) => {
         const valor = dataset.data[index];
 
-        ctx.fillStyle = "#000"; // color del texto
+        ctx.fillStyle = "#000"; 
         ctx.font = "12px Arial";
         ctx.textAlign = "center";
 
         const x = bar.x;
-        const y = bar.y - 5; // arriba de la barra
+        const y = bar.y - 5; 
 
         ctx.fillText(valor, x, y);
       });
@@ -81,7 +80,7 @@ this.loadingService.hide();
 
              layout: {
       padding: {
-        top: 70 // Más espacio arriba
+        top: 70 
       }
     },
             plugins: {
@@ -113,15 +112,13 @@ this.loadingService.hide();
   async exportarPDF() {
   const element = this.graficaContainer.nativeElement;
 
-  // Convertir a imagen usando html2canvas
   const canvas = await html2canvas(element, {
-    scale: 3, // mayor resolución
+    scale: 3, 
     useCORS: true
   });
 
   const imgData = canvas.toDataURL('image/png');
 
-  // Crear PDF en formato vertical tamaño carta
   const pdf = new jsPDF({
     orientation: 'landscape',
     unit: 'px',
@@ -131,7 +128,6 @@ this.loadingService.hide();
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
 
-  // Ajustar imagen para que llene toda la hoja
   pdf.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight);
 
   pdf.save('grafica-prestamos.pdf');

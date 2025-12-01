@@ -1,11 +1,10 @@
 ion-content {
-  --background: #f3f3f3; /* fondo gris claro general */
+  --background: #f3f3f3; 
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-/* === ENCABEZADO === */
 .top-bar {
   width: 100%;
   background: #e6f0e3;
@@ -47,7 +46,6 @@ ion-content {
   margin-top: -4px;
 }
 
-/* === CUERPO CENTRAL === */
 .center-wrapper {
   flex: 1;
   display: flex;
@@ -56,7 +54,6 @@ ion-content {
   padding: 25px;
 }
 
-/* === CONTENEDOR LOGIN === */
 .login-container {
   display: flex;
   flex-direction: row;
@@ -68,10 +65,9 @@ ion-content {
   background: #ffffff; /* blanco solo para la parte derecha */
 }
 
-/* === LADO IZQUIERDO === */
 .login-image {
   flex: 1;
-  background: #f3f3f3; /* mismo color del fondo, no blanco */
+  background: #f3f3f3; 
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -96,7 +92,6 @@ ion-content {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-/* === LADO DERECHO === */
 .login-form {
   flex: 1;
   background: #ffffff;
@@ -113,7 +108,6 @@ ion-content {
   font-weight: 500;
 }
 
-/* Campos */
 ion-item {
   --background: #f2faf2;
   --border-radius: 8px;
@@ -128,7 +122,6 @@ ion-input {
   color: #222;
 }
 
-/* Botón */
 .btn-login {
   --background: #89a987;
   --background-hover: #7ca67a;
@@ -138,7 +131,6 @@ ion-input {
   margin-top: 15px;
 }
 
-/* === RESPONSIVE === */
 @media (max-width: 900px) {
   .login-container {
     flex-direction: column;
@@ -156,7 +148,6 @@ ion-input {
   }
 }
 
-/* Para pantallas pequeñas: evitar que el login tape el header */
 @media (max-width: 600px) {
   ion-content {
     overflow-y: auto;
@@ -164,7 +155,7 @@ ion-input {
 
   .center-wrapper {
     align-items: flex-start;
-    margin-top: 80px; /* deja espacio para el logo */
+    margin-top: 80px;
   }
 
   .top-bar-inner {

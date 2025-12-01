@@ -137,9 +137,8 @@ async cambiarEstado(carrera: Carrera) {
     const { data } = await modal.onWillDismiss();
 
     if (data && data.carrera) {
-      // Agregar la nueva carrera
       this.carreras.push(data.carrera);
-      this.buscarCarrera(); // Actualizar la lista filtrada
+      this.buscarCarrera(); 
 
      
     }

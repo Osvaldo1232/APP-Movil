@@ -233,16 +233,16 @@
 /* Paginación */
 .paginacion {
   display: flex;
-  justify-content: center;      /* CENTRADO TOTAL */
+  justify-content: center;      
   align-items: center;
   gap: 8px;
-  margin: 35px auto 20px auto;  /* CENTRADO Y ESPACIADO */
+  margin: 35px auto 20px auto;  
   padding: 12px 20px;
   width: 100%;
 }
 
 .paginacion button {
-  background-color: #c89999;       /* color de tus tarjetas */
+  background-color: #c89999;       
   border: none;
   color: #fff;
   padding: 8px 14px;
@@ -271,7 +271,6 @@
   border: 1px solid #583d3d;
 }
 
-/* Responsive */
 @media (max-width: 600px) {
   .paginacion {
     flex-wrap: wrap;
@@ -284,7 +283,6 @@
   }
 }
 
-/* Modo oscuro */
 @media (prefers-color-scheme: dark) {
   .paginacion button {
     background-color: #a07878;

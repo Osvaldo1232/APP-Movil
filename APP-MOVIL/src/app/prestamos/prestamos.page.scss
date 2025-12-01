@@ -1,6 +1,4 @@
-/* ================================
-   CONTENEDOR GENERAL
-================================ */
+
 .contenedor {
   max-width: 1400px;
   margin: 0 auto;
@@ -18,9 +16,7 @@
   font-family: 'Georgia', serif;
 }
 
-/* ================================
-   BARRA DE BÚSQUEDA
-================================ */
+
 .barra-busqueda {
   display: flex;
   align-items: center;
@@ -40,7 +36,6 @@
   padding: 0 16px;
 }
 
-/* Botones a la derecha */
 .barra-busqueda .botones-derecha {
   display: flex;
   gap: 10px;
@@ -61,9 +56,7 @@
   }
 }
 
-/* ================================
-   TABLA
-================================ */
+
 .tabla-contenedor {
   background: white;
   border-radius: 8px;
@@ -125,9 +118,7 @@ table tbody td.acciones ion-icon:last-child {
   margin-right: 0;
 }
 
-/* ================================
-   PAGINACIÓN
-================================ */
+
 .paginacion {
   margin-top: 20px;
   text-align: center;
@@ -158,9 +149,7 @@ table tbody td.acciones ion-icon:last-child {
   cursor: not-allowed;
 }
 
-/* ================================
-   RESPONSIVE
-================================ */
+
 @media (max-width: 768px) {
   .titulo {
     font-size: 1.5rem;
@@ -224,9 +213,7 @@ table tbody td.acciones ion-icon:last-child {
   }
 }
 
-/* ================================
-   TEMA OSCURO
-================================ */
+
 @media (prefers-color-scheme: dark) {
   .contenedor {
     background-color: #1a1a1a;

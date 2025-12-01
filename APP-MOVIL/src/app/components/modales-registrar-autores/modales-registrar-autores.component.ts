@@ -52,7 +52,6 @@ export class ModalesRegistrarAutoresComponent implements OnInit {
     }
 
     if (this.autor.id) {
-      // EDITAR AUTOR
       this.autoresService.actualizarAutor(this.autor.id, this.autor).subscribe({
         next: async (resp) => {
          
@@ -75,7 +74,6 @@ export class ModalesRegistrarAutoresComponent implements OnInit {
         },
       });
     } else {
-      // CREAR AUTOR
       this.autoresService.crearAutor(this.autor).subscribe({
         next: async (resp) => {
           

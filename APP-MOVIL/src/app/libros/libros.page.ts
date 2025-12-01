@@ -133,13 +133,11 @@ async editarLibro(libro: Libro) {
 
   if (data && data.libroActualizado) {
 
-    // Actualizar localmente
     const index = this.libros.findIndex(l => l.id === data.libroActualizado.id);
     if (index !== -1) {
       this.libros[index] = data.libroActualizado;
     }
 
-    // 🔄 Recargar todo para que paginado, filtro y tabla queden bien
     this.cargarLibros();
   }
 }

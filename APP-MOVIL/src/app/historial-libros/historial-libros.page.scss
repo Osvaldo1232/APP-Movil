@@ -137,7 +137,6 @@
   }
 }
 
-// Responsive - Tabla horizontal scrollable en móviles
 @media (max-width: 768px) {
   .titulo-principal {
     font-size: 1.5rem;
@@ -195,7 +194,6 @@
   }
 }
 
-// Tema oscuro
 @media (prefers-color-scheme: dark) {
   .container {
     background-color: #1a1a1a;

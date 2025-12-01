@@ -51,8 +51,9 @@
         <ion-item class="cantidad-item">
           <ion-input type="number"
                      min="1"
-                     [max]="libro.copiasDisponibles"
-                     [(ngModel)]="libro.cantidadSeleccionada">
+                     [max]="1"
+                     [(ngModel)]="libro.cantidadSeleccionada"
+                     disabled>
           </ion-input>
         </ion-item>
 

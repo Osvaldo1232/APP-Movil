@@ -24,7 +24,6 @@ export class PrestamosVencidosPage implements OnInit {
   libros: string[] = [];
   carreras: string[] = [];
 
-  // PAGINACIÓN
   paginaActual = 1;
   itemsPorPagina = 6;
   totalPaginas = 1;
@@ -85,9 +84,7 @@ export class PrestamosVencidosPage implements OnInit {
     this.buscarPrestamos();
   }
 
-  // -----------------------
-  //     PAGINACIÓN
-  // -----------------------
+ 
 
   configurarPaginacion() {
     this.totalPaginas = Math.ceil(this.prestamosFiltrados.length / this.itemsPorPagina);

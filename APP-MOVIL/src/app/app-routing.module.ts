@@ -71,7 +71,7 @@ const routes: Routes = [
   },
     {
       path: '',
-      redirectTo: 'carreras',
+      redirectTo: 'libros',
       pathMatch: 'full'
     }
   ]

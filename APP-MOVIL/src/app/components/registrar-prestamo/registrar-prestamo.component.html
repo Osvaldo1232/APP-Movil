@@ -8,9 +8,7 @@
 
   <form class="formulario">
 
-    <!-- ========================================= -->
-    <!--   ALUMNOS (alert + búsqueda interna)      -->
-    <!-- ========================================= -->
+   
     <div class="form-group">
       <ion-select
         [(ngModel)]="prestamo.usuarioId"
@@ -28,9 +26,7 @@
       </ion-select>
     </div>
 
-    <!-- ========================================= -->
-    <!--   LIBROS (alert + búsqueda interna)       -->
-    <!-- ========================================= -->
+   
     <div class="form-group">
       <ion-select
         [(ngModel)]="prestamo.libroId"
@@ -48,7 +44,6 @@
       </ion-select>
     </div>
 
-    <!-- Cantidad -->
     <div class="form-group">
        <ion-label>Cantidad a Prestar</ion-label>
 
@@ -60,7 +55,6 @@
       ></ion-input>
     </div>
 
-    <!-- Fecha de devolución -->
     <div class="form-group">
        <ion-label>Fecha Devolucion</ion-label>
       <ion-input
@@ -71,7 +65,6 @@
       ></ion-input>
     </div>
 
-    <!-- Botones -->
     <div class="botones-container">
       <ion-button fill="outline" class="btn-cancelar" (click)="cerrarModal()">
         Cancelar

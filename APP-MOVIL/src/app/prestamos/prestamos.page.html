@@ -3,7 +3,6 @@
 
     <h1 class="titulo">PRÉSTAMOS REGISTRADOS</h1>
 
-    <!-- BARRA DE BÚSQUEDA -->
  <div class="barra-busqueda">
 
   <input 
@@ -23,7 +22,6 @@
 </div>
 
 
-    <!-- TABLA -->
     <div class="tabla-contenedor">
       <table>
         <thead>
@@ -52,18 +50,21 @@
             <td class="acciones">
               <ion-icon *ngIf="p.estatus==='PRESTADO'"
                 name="arrow-undo-outline"
+                 title="Devolver préstamo"
                 style="cursor:pointer; margin-right: 10px; font-size: 22px;"
                 (click)="editarPrestamo(p)">
               </ion-icon>
 
                 <ion-icon *ngIf="p.estatus==='APARTADO'"
                 name="checkmark-circle-outline"
+                title="Confirmar apartado"
                 style="cursor:pointer; margin-right: 10px; font-size: 22px;"
                  (click)="cambiarEstatus(p, $event)">
               </ion-icon>
 
                 <ion-icon *ngIf="p.estatus==='APARTADO'"
                 name="close-circle-outline"
+                 title="Cancelar apartado"
                 style="cursor:pointer; margin-right: 10px; font-size: 22px;"
                  (click)="cancelar(p, $event)">
               </ion-icon>
@@ -73,7 +74,6 @@
       </table>
     </div>
 
-    <!-- PAGINACIÓN -->
     <div class="paginacion" *ngIf="totalPaginas > 1">
       <button (click)="irPrimera()" [disabled]="paginaActual === 1">«</button>
       <button (click)="paginaAnterior()" [disabled]="paginaActual === 1">‹</button>

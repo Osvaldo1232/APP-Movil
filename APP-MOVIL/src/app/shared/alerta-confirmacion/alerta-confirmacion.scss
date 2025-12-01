@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(45, 4, 4, 0.6); /* Fondo vino semi-transparente */
+  background-color: rgba(45, 4, 4, 0.6); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,18 +15,18 @@
   background: beige;
   border-radius: 14px;
   padding: 20px 18px;
-  width: 320px; /* más pequeño */
+  width: 320px;
   text-align: center;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
   animation: aparecer 0.25s ease-in-out;
-  color: #2d0404; /* texto vino oscuro */
-  border: 2px solid #530909; /* borde vino */
+  color: #2d0404; 
+  border: 2px solid #530909; 
 }
 
 .alerta-icono {
-  font-size: 35px; /* reducido */
+  font-size: 35px; 
   margin-bottom: 8px;
-  color: #d33; /* rojo advertencia */
+  color: #d33; 
 }
 
 .alerta-titulo {
@@ -49,7 +49,7 @@
 
 .btn-confirmar,
 .btn-cancelar {
-  padding: 8px 14px; /* botones más compactos */
+  padding: 8px 14px; 
   font-size: 14px;
   border-radius: 6px;
   font-weight: bold;

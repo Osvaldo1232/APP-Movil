@@ -1,6 +1,4 @@
-/* ============================================================
-   FIX PARA QUE EL MODAL NO CORTE CONTENIDO NI BOTONES
-   ============================================================ */
+
 
 :host ::ng-deep ion-modal .ion-overlay-wrapper {
   max-height: 90vh !important;
@@ -10,9 +8,6 @@
   max-height: 90vh !important;
 }
 
-/* ============================================================
-   CONTENEDOR PRINCIPAL
-   ============================================================ */
 .modal-container {
   padding: 30px;
   position: relative;
@@ -22,14 +17,11 @@
   display: flex;
   flex-direction: column;
 
-  max-height: 85vh;     /* El modal no se pasa de la pantalla */
-  overflow-y: auto;     /* Scroll interno */
+  max-height: 85vh;   
+  overflow-y: auto;   
 }
 
 
-/* ============================================================
-   BOTÓN CERRAR
-   ============================================================ */
 .btn-cerrar {
   position: absolute;
   top: 10px;
@@ -46,10 +38,6 @@
   }
 }
 
-
-/* ============================================================
-   TITULO
-   ============================================================ */
 .modal-titulo {
   font-size: 1.8rem;
   font-weight: 400;
@@ -60,9 +48,6 @@
 }
 
 
-/* ============================================================
-   FORMULARIO
-   ============================================================ */
 .formulario {
   display: flex;
   flex-direction: column;
@@ -93,10 +78,6 @@
   }
 }
 
-
-/* ============================================================
-   ESTADO TOGGLE (AJUSTADO A TU DISEÑO)
-   ============================================================ */
 .estado-toggle {
   display: flex;
   justify-content: space-between;
@@ -112,10 +93,6 @@
   --handle-background-checked: white;
 }
 
-
-/* ============================================================
-   BOTONES (CON TU ESTILO Y FIJOS)
-   ============================================================ */
 .botones-container {
   display: flex;
   gap: 15px;
@@ -162,10 +139,6 @@
   }
 }
 
-
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
 @media (max-width: 480px) {
   .modal-container {
     padding: 20px;
@@ -184,10 +157,6 @@
   }
 }
 
-
-/* ============================================================
-   DARK MODE
-   ============================================================ */
 @media (prefers-color-scheme: dark) {
   .modal-container {
     background: #2c2c2c;

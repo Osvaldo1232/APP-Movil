@@ -1,5 +1,4 @@
 <div class="modal-container">
-  <!-- Botón cerrar (X) -->
   <ion-button 
     fill="clear" 
     class="btn-cerrar" 
@@ -8,12 +7,9 @@
     <ion-icon slot="icon-only" name="close"></ion-icon>
   </ion-button>
 
-  <!-- Título -->
   <h2 class="modal-titulo">Registrar Estudiante</h2>
 
-  <!-- Formulario -->
   <form class="formulario">
-    <!-- Matrícula -->
     <div class="form-group">
       <ion-input
         [(ngModel)]="estudiante.matricula"
@@ -24,7 +20,6 @@
       ></ion-input>
     </div>
 
-    <!-- Nombre -->
     <div class="form-group">
       <ion-input
         [(ngModel)]="estudiante.nombre"
@@ -35,7 +30,6 @@
       ></ion-input>
     </div>
 
-    <!-- Apellido Paterno -->
     <div class="form-group">
       <ion-input
         [(ngModel)]="estudiante.apellidoPaterno"
@@ -46,7 +40,6 @@
       ></ion-input>
     </div>
 
-    <!-- Apellido Materno -->
     <div class="form-group">
       <ion-input
         [(ngModel)]="estudiante.apellidoMaterno"
@@ -57,7 +50,6 @@
       ></ion-input>
     </div>
 
-    <!-- Carrera -->
     <div class="form-group">
       <ion-select
         [(ngModel)]="estudiante.carreraId"
@@ -83,7 +75,6 @@
         <ion-toggle [(ngModel)]="estudiante.activo" name="activo" color="success"></ion-toggle>
       </div>
     </div>
-    <!-- Botones -->
     <div class="botones-container">
       <ion-button fill="outline" class="btn-cancelar" (click)="cerrarModal()">
         Cancelar

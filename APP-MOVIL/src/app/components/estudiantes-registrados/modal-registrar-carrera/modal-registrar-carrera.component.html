@@ -1,16 +1,12 @@
 <div class="modal-container">
-  <!-- Botón cerrar (X) -->
   <ion-button fill="clear" class="btn-cerrar" (click)="cerrarModal()">
     <ion-icon slot="icon-only" name="close"></ion-icon>
   </ion-button>
 
-  <!-- Título -->
   <h2 class="modal-titulo">Registrar Carrera</h2>
 
-  <!-- Formulario -->
   <form class="formulario">
 
-    <!-- Estatus arriba a la derecha -->
     <div class="estado-toggle-container">
       <div class="estado-toggle">
          <span class="estado-titulo">Estatus:</span>
@@ -19,7 +15,6 @@
       </div>
     </div>
 
-    <!-- Nombre -->
     <div class="form-group">
       <ion-input
         [(ngModel)]="carrera.nombre"
@@ -30,7 +25,6 @@
       ></ion-input>
     </div>
 
-    <!-- Botones -->
     <div class="botones-container">
       <ion-button fill="outline" class="btn-cancelar" (click)="cerrarModal()">
         Cancelar

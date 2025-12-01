@@ -1,18 +1,13 @@
 <div class="modal-container">
-  <!-- Botón cerrar -->
   <ion-button fill="clear" class="btn-cerrar" (click)="cerrarModal()">
     <ion-icon slot="icon-only" name="close"></ion-icon>
   </ion-button>
 
-  <!-- Título -->
   <h2 class="modal-titulo">Registrar Categoría</h2>
 
-  <!-- Formulario -->
   <form class="formulario">
-    <!-- ID -->
     
 
-    <!-- Nombre -->
     <div class="form-group">
       <ion-input
         [(ngModel)]="categoria.nombre"
@@ -23,7 +18,6 @@
       ></ion-input>
     </div>
 
-    <!-- Botones -->
     <div class="botones-container">
       <ion-button fill="outline" class="btn-cancelar" (click)="cerrarModal()">
         Cancelar

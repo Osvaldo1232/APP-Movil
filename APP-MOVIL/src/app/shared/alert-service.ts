@@ -22,7 +22,6 @@ export class AlertService {
       componentRef.instance.title = title;
     }
 
-    // Callback para cerrar
     componentRef.instance.setCloseCallback(() => {
       this.appRef.detachView(componentRef.hostView);
       componentRef.destroy();

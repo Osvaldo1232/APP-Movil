@@ -6,9 +6,9 @@ export interface LoginResponse {
 }
 
 export interface Carrera {
-  id?: string;      // opcional al crear
+  id?: string;      
   nombre: string;
-  estatus: string;  // "ACTIVO" o "INACTIVO"
+  estatus: string;  
   activo?: boolean;
 }
 
@@ -28,7 +28,7 @@ export interface Estudiantes {
 password:string,
 fechaNacimiento:string,
 sexo:string,
-  estatus: string; // "ACTIVO" o "INACTIVO"
+  estatus: string; 
 }
 
 
@@ -40,7 +40,7 @@ export interface Estudiante {
   matricula: string;
   carreraId: string;
   carreraNombre: string;
-  estatus: string; // ACTIVO o INACTIVO
+  estatus: string; 
 }
 export interface Autor {
   id?: string;
@@ -60,13 +60,13 @@ export interface Categoria {
 export interface Libro {
   id: string;
   titulo: string;
-  autores: string[];           // ← array de strings
+  autores: string[];          
   anioPublicacion: number;
   editorial: string;
   copiasDisponibles: number;
   categoriaId: string;
   categoriaNombre: string;
-  estatus: string;             // ACTIVO | INACTIVO
+  estatus: string;            
 
    imagen: string | null;     
 
@@ -101,9 +101,9 @@ export interface Prestamo {
   
   libroTitulo: string;
   cantidad: number;
-  fechaPrestamo: string;      // o Date si prefieres
-  fechaDevolucion: string;    // o Date si prefieres
-  estatus: string;            // libre
+  fechaPrestamo: string;      
+  fechaDevolucion: string;    
+  estatus: string;           
 }
 
 
@@ -114,7 +114,7 @@ export interface PrestamoCrear {
   cantidad: number;
   cantidadDevuelta: number;
   fechaDevolucion: string;
-  estatus: string;  // lo dejas libre como pediste
+  estatus: string;  
 }
 
 
@@ -122,7 +122,7 @@ export interface PrestamoCre {
   usuarioId: string;
   libroId: string;
   cantidad: number;
-  fechaDevolucion: string; // YYYY-MM-DD
+  fechaDevolucion: string; 
 }
 
 export interface PrestamoRespuesta {
@@ -173,13 +173,13 @@ export interface UsuarioDa {
 
 
 export interface EmpleadoA {
-  id?: string;                 // Opcional → solo en edición
+  id?: string;                
   nombre: string;
   apellidoPaterno: string;
   apellidoMaterno: string;
   email: string;
-  password?: string;           // Opcional → no obligatorio al editar
-  fechaNacimiento: string;     // YYYY-MM-DD
+  password?: string;          
+  fechaNacimiento: string;     
   sexo: "MASCULINO" | "FEMENINO";
   estatus: "ACTIVO" | "INACTIVO";
   telefono?: string;
@@ -193,18 +193,19 @@ export interface LibroAc {
   titulo: string;
   sinopsis: string;
   copiasDisponibles: number;
-  imagenBase64: string;     // Base64
-  autores: string;    // Si tu API regresa string; si es array, cambia a string[]
-  cantidadSeleccionada: number; // usado solo en el front
+  imagenBase64: string;     
+  autores: string;    
+  cantidadSeleccionada: number; 
 }
 
 
 export interface PrestamoUsuario {
+  id:string,
   titulo: string;
-  imagen: string;          // Base64 desde backend
+  imagen: string;          
   cantidad: number;
   estatus: string;
-  fechaPrestamo: string;   // ISO string → puede convertirse a Date
+  fechaPrestamo: string;   
   fechaDevolucion: string;
-  autores: string[];       // lista de autores
+  autores: string[];       
 }

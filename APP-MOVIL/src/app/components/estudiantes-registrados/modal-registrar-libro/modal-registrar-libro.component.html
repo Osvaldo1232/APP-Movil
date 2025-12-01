@@ -1,18 +1,15 @@
 <div class="modal-container">
 
-  <!-- Botón cerrar -->
   <ion-button fill="clear" class="btn-cerrar" (click)="cerrarModal()">
     <ion-icon slot="icon-only" name="close"></ion-icon>
   </ion-button>
 
-  <!-- Título -->
   <h2 class="modal-titulo">
     {{ libroEditar ? 'Editar Libro' : 'Registrar Libro' }}
   </h2>
 
   <form class="formulario">
 
-    <!-- Título -->
     <div class="form-group">
       <ion-label>Titulo</ion-label>
 
@@ -20,7 +17,6 @@
                  placeholder="Título" class="custom-input"></ion-input>
     </div>
 
-    <!-- Autores -->
     <div class="form-group">
       <ion-label>Autores</ion-label>
       <ion-select [(ngModel)]="libro.autores" name="autores" multiple="true"
@@ -31,7 +27,6 @@
       </ion-select>
     </div>
 
-    <!-- Categoría -->
     <div class="form-group">
       <ion-label>Categoría</ion-label>
       <ion-select [(ngModel)]="libro.categoria" name="categoria"
@@ -42,7 +37,6 @@
       </ion-select>
     </div>
 
-    <!-- Año -->
     <div class="form-group">
       <ion-label>Año Publicación</ion-label>
 
@@ -51,7 +45,6 @@
                  placeholder="Año de Publicación" class="custom-input"></ion-input>
     </div>
 
-    <!-- Editorial -->
     <div class="form-group">
       <ion-label>Editorial</ion-label>
 
@@ -59,7 +52,6 @@
                  placeholder="Editorial" class="custom-input"></ion-input>
     </div>
 
-    <!-- Total Copias -->
     <div class="form-group">
       <ion-label>Copias Disponibles</ion-label>
 
@@ -76,7 +68,6 @@
                  class="custom-input"></ion-input>
     </div>
 
-    <!-- Sinopsis -->
     <div class="form-group">
       <ion-label>Sipnosis</ion-label>
 
@@ -84,13 +75,11 @@
                     placeholder="Sinopsis" class="custom-input"></ion-textarea>
     </div>
 
-    <!-- Imagen -->
     <div class="form-group">
       <ion-label>Imagen del Libro</ion-label>
       <input type="file" accept="image/*" (change)="convertirImagenBase64($event)">
     </div>
 
-    <!-- Vista previa -->
   <div *ngIf="libro.imagenBase64" class="imagen-container">
   <img 
     [src]="'data:image/jpeg;base64,' + libro.imagenBase64"
@@ -99,7 +88,6 @@
 </div>
 
 
-    <!-- Estatus -->
     <div class="form-group">
       <ion-item lines="none">
         <ion-label>Estatus</ion-label>
@@ -108,7 +96,6 @@
       </ion-item>
     </div>
 
-    <!-- Botones -->
     <div class="botones-container">
       <ion-button fill="outline" class="btn-cancelar" (click)="cerrarModal()">
         Cancelar

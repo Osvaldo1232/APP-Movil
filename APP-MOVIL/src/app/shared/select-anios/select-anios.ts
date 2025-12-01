@@ -10,10 +10,10 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './select-anios.scss'
 })
 export class SelectAnios implements OnInit {
-   @Input() cantidad: number = 50; // años hacia adelante desde el actual
-  @Input() selected: number | null = null; // año inicio
-  @Output() selectedChange = new EventEmitter<number>(); // two-way binding
-  @Input() disabled: boolean = false; // 👈 Esto es necesario
+   @Input() cantidad: number = 50; 
+  @Input() selected: number | null = null; 
+  @Output() selectedChange = new EventEmitter<number>();
+  @Input() disabled: boolean = false; 
 
 
   anios: number[] = [];

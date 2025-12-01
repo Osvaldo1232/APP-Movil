@@ -98,7 +98,6 @@ limpiar() {
   const { data } = await modal.onWillDismiss();
 
   if (data && data.categoria) {
-    // 🔄  Recarga todo de la BD para ver cambios en pantalla
     this.cargarCategorias();
   }
 }

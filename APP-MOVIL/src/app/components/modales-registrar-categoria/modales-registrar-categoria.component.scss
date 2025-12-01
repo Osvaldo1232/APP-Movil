@@ -100,7 +100,6 @@
   }
 }
 
-// Responsive
 @media (max-width: 480px) {
   .modal-container {
     padding: 20px;
@@ -121,7 +120,6 @@
   }
 }
 
-// Tema oscuro
 @media (prefers-color-scheme: dark) {
   .modal-container {
     background: #2c2c2c;

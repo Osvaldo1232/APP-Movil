@@ -1,6 +1,5 @@
 <div class="modal-container">
 
-  <!-- Botón cerrar -->
   <ion-button 
     fill="clear" 
     class="btn-cerrar"
@@ -8,12 +7,10 @@
     <ion-icon slot="icon-only" name="close"></ion-icon>
   </ion-button>
 
-  <!-- Título -->
   <h2 class="modal-titulo">Registrar Empleado</h2>
 
   <form class="formulario">
 
-    <!-- Nombre -->
     <div class="form-group">
       <ion-input
         [(ngModel)]="empleado.nombre"
@@ -24,7 +21,6 @@
       </ion-input>
     </div>
 
-    <!-- Apellido paterno -->
     <div class="form-group">
       <ion-input
         [(ngModel)]="empleado.apellidoPaterno"
@@ -35,7 +31,6 @@
       </ion-input>
     </div>
 
-    <!-- Apellido materno -->
     <div class="form-group">
       <ion-input
         [(ngModel)]="empleado.apellidoMaterno"
@@ -46,7 +41,6 @@
       </ion-input>
     </div>
 
-    <!-- Email -->
     <div class="form-group">
       <ion-input
         [(ngModel)]="empleado.email"
@@ -57,7 +51,6 @@
       </ion-input>
     </div>
 
-    <!-- Password -->
     <div *ngIf="activar" class="form-group">
       <ion-input
         [(ngModel)]="empleado.password"
@@ -68,7 +61,6 @@
       </ion-input>
     </div>
 
-    <!-- Fecha nacimiento -->
     <div class="form-group">
       <ion-input
         [(ngModel)]="empleado.fechaNacimiento"
@@ -78,7 +70,6 @@
       </ion-input>
     </div>
 
-    <!-- Sexo -->
     <div class="form-group">
       <ion-select
         [(ngModel)]="empleado.sexo"
@@ -93,7 +84,6 @@
       </ion-select>
     </div>
 
-    <!-- Teléfono -->
     <div class="form-group">
       <ion-input
         [(ngModel)]="empleado.telefono"
@@ -104,7 +94,6 @@
       </ion-input>
     </div>
 
-    <!-- Clave presupuestal -->
     <div class="form-group">
       <ion-input
         [(ngModel)]="empleado.clavePresupuestal"
@@ -115,7 +104,6 @@
       </ion-input>
     </div>
 
-    <!-- Estatus -->
     <div class="estado-toggle-container">
       <div class="estado-toggle">
         <span class="estado-titulo">Estatus:</span>
@@ -129,7 +117,6 @@
       </div>
     </div>
 
-    <!-- Botones -->
     <div class="botones-container">
       <ion-button  (click)="guardarEmpleado()">
         Guardar

@@ -51,14 +51,12 @@ export class RegresarPrestamosComponent {
       .devolverPrestamo(idPrestamo, cantidadDevuelta)
       .toPromise();
 
-    // Alerta éxito
     this.alerta.show(
       'El préstamo se devolvió correctamente.',
       'success',
       'Éxito'
     );
 
-    // cerrar modal
     this.modalController.dismiss({
       ok: true,
       prestamoActualizado: resp
@@ -69,9 +67,8 @@ export class RegresarPrestamosComponent {
 
     let mensaje = 'Ocurrió un error inesperado';
 
-    // 🔥 Si backend regresó un error 400 con JSON
     if (err?.error?.error) {
-      mensaje = err.error.error; // "La cantidad devuelta no puede ser mayor a la pendiente"
+      mensaje = err.error.error; 
     }
 
     this.alerta.show(
@@ -80,7 +77,6 @@ export class RegresarPrestamosComponent {
       'Error'
     );
 
-    // NO cerrar modal cuando hay error
   }
 }
 

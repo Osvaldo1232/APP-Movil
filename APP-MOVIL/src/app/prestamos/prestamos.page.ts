@@ -21,7 +21,6 @@ export class PrestamosPage implements OnInit {
   prestamosFiltrados: Prestamo[] = [];
   prestamosPaginados: Prestamo[] = [];
 
-  // PAGINACIÓN
   paginaActual = 1;
   elementosPorPagina = 10;
   totalPaginas = 0;
@@ -56,9 +55,7 @@ export class PrestamosPage implements OnInit {
     });
   }
 
-  // -------------------
-  // BÚSQUEDA
-  // -------------------
+ 
   buscar() {
     const texto = this.searchTerm.trim().toLowerCase();
 
@@ -82,9 +79,7 @@ export class PrestamosPage implements OnInit {
     this.actualizarPaginacion();
   }
 
-  // -------------------
-  // PAGINACIÓN
-  // -------------------
+ 
   actualizarPaginacion() {
     this.totalPaginas = Math.ceil(this.prestamosFiltrados.length / this.elementosPorPagina);
 
@@ -129,9 +124,7 @@ export class PrestamosPage implements OnInit {
     this.actualizarPrestamosPaginados();
   }
 
-  // -------------------
-  // EDITAR
-  // -------------------
+ 
   async editarPrestamo(prestamo: Prestamo) {
     const modal = await this.modalController.create({
       component: RegresarPrestamosComponent,
@@ -146,9 +139,7 @@ export class PrestamosPage implements OnInit {
     this.cargarPrestamos();
   }
 
-  // -------------------
-  // NUEVO
-  // -------------------
+
   async nuevoPrestamo() {
     const modal = await this.modalController.create({
       component: RegistrarPrestamoComponent,
