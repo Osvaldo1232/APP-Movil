@@ -1,73 +1,145 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { Autor, Carrera, Categoria, Combo, EmpleadoA, Estudiante, Estudiantes, Libro, LibroAc, Libros, LoginResponse, Prestamo, PrestamoCre, PrestamoCrear, PrestamoFecha, PrestamoRespuesta, PrestamoUsuario, TopLibros, UsuarioDa, UsuarioInfo } from '../modelos/LoginResponse';
+import { Observable, from } from 'rxjs';
+import { tap, map } from 'rxjs/operators';
+import { Capacitor } from '@capacitor/core';
+import { CapacitorHttp, HttpResponse, HttpOptions } from '@capacitor/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ServiciosApi {
   
-
-
-  
- private baseUrl = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app';
-private apiUrl = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/prestamos';
- private baseUrP = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/prestamos/detalles';
-
- private baseUrlLI = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/libros';
+  private baseUrl = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app';
+  private apiUrl = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/prestamos';
+  private baseUrP = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/prestamos/detalles';
+  private baseUrlLI = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/libros';
   private apiusuario = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/usuarios';
- private baseUrlc = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/carreras';
- private baseUrlA = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/alumnos';
- private baseUrlP = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/Profesores';
+  private baseUrlc = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/carreras';
+  private baseUrlA = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/alumnos';
+  private baseUrlP = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/Profesores';
+  private baseUrlC = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/categorias';
+  private baseUrlAu = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/autores';
 
- private baseUrlC = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/categorias';
- private baseUrlAu = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/autores';
   constructor(private http: HttpClient, private router: Router) { }
 
-obtenerUsuarioLogueado(id: string): Observable<UsuarioInfo> {
-    return this.http.get<UsuarioInfo>(`${this.apiusuario}/info/${id}`);
-  }
- crearCarrera(carrera: Carrera): Observable<Carrera> {
-  return this.http.post<Carrera>(`${this.baseUrlc}`, carrera);
-}
-
-actualizarEstatus(id: string, estatus: string): Observable<any> {
-  const url = `${this.baseUrlc}/${id}/estatus?estatus=${estatus}`;
-  return this.http.patch(url, {}); 
-}
-
-
-actualizarCarrera(id: string, carrera: Carrera): Observable<Carrera> {
-  return this.http.put<Carrera>(`${this.baseUrlc}/${id}`, carrera);
-}
-
-  obtenerCarreras(): Observable<Carrera[]> {
-    return this.http.get<Carrera[]>(this.baseUrlc);
-  }
-  obtenerCarrerasA(): Observable<Combo[]> {
-    return this.http.get<Combo[]>(`${this.baseUrlc}/activosC`);
+  // Método helper para determinar si estamos en nativo
+  private isNative(): boolean {
+    return Capacitor.isNativePlatform();
   }
 
-  
-
-  obtenerCarreraPorId(id: string): Observable<Carrera> {
-    return this.http.get<Carrera>(`${this.baseUrl}/${id}`);
+  // Método helper para obtener headers
+  private getHeaders(): any {
+    const token = this.getToken();
+    const headers: any = {
+      'Content-Type': 'application/json',
+    };
+    
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+    
+    return headers;
   }
 
-  
+  // Método genérico para GET
+  private get<T>(url: string, params?: HttpParams): Observable<T> {
+    if (this.isNative()) {
+      const options: HttpOptions = {
+        url: url,
+        headers: this.getHeaders()
+      };
 
+      if (params) {
+        const paramsObj: any = {};
+        params.keys().forEach(key => {
+          paramsObj[key] = params.get(key);
+        });
+        options.params = paramsObj;
+      }
 
-  login(email: string, password: string): Observable<LoginResponse> {
+      return from(CapacitorHttp.get(options)).pipe(
+        map((response: HttpResponse) => response.data as T)
+      );
+    } else {
+      return this.http.get<T>(url, { params });
+    }
+  }
+
+  // Método genérico para POST
+  private post<T>(url: string, body: any): Observable<T> {
+    if (this.isNative()) {
+      const options: HttpOptions = {
+        url: url,
+        headers: this.getHeaders(),
+        data: body
+      };
+
+      return from(CapacitorHttp.post(options)).pipe(
+        map((response: HttpResponse) => response.data as T)
+      );
+    } else {
+      return this.http.post<T>(url, body);
+    }
+  }
+
+  // Método genérico para PUT
+  private put<T>(url: string, body: any): Observable<T> {
+    if (this.isNative()) {
+      const options: HttpOptions = {
+        url: url,
+        headers: this.getHeaders(),
+        data: body
+      };
+
+      return from(CapacitorHttp.put(options)).pipe(
+        map((response: HttpResponse) => response.data as T)
+      );
+    } else {
+      return this.http.put<T>(url, body);
+    }
+  }
+
+  // Método genérico para PATCH
+  private patch<T>(url: string, body: any = {}): Observable<T> {
+    if (this.isNative()) {
+      const options: HttpOptions = {
+        url: url,
+        headers: this.getHeaders(),
+        data: body
+      };
+
+      return from(CapacitorHttp.patch(options)).pipe(
+        map((response: HttpResponse) => response.data as T)
+      );
+    } else {
+      return this.http.patch<T>(url, body);
+    }
+  }
+
+  // Método genérico para DELETE
+  private delete<T>(url: string): Observable<T> {
+    if (this.isNative()) {
+      const options: HttpOptions = {
+        url: url,
+        headers: this.getHeaders()
+      };
+
+      return from(CapacitorHttp.delete(options)).pipe(
+        map((response: HttpResponse) => response.data as T)
+      );
+    } else {
+      return this.http.delete<T>(url);
+    }
+  }
+
+  // MÉTODOS DE AUTENTICACIÓN
+  login(email: string, password: string): Observable<any> {
     const body = { email, password };
-    return this.http.post<LoginResponse>(`${this.baseUrl}/Autenticacion/login`, body)
+    return this.post<any>(`${this.baseUrl}/Autenticacion/login`, body)
       .pipe(
         tap(res => {
-          
-
-
           this.storeToken(res.token);
           this.storeUUID(res.uuid);
           this.storeRoles([res.rol]); 
@@ -75,8 +147,7 @@ actualizarCarrera(id: string, carrera: Carrera): Observable<Carrera> {
       );
   }
 
-   
- private storeToken(token: string): void {
+  private storeToken(token: string): void {
     localStorage.setItem('auth_token', token);
   }
 
@@ -87,7 +158,8 @@ actualizarCarrera(id: string, carrera: Carrera): Observable<Carrera> {
   private storeRoles(roles: string[]): void {
     localStorage.setItem('roles', JSON.stringify(roles));
   }
-    logueado(): string | null {
+
+  logueado(): string | null {
     return localStorage.getItem('uuid');
   }
 
@@ -95,192 +167,236 @@ actualizarCarrera(id: string, carrera: Carrera): Observable<Carrera> {
     localStorage.removeItem('token');
     localStorage.removeItem('rol');
     localStorage.removeItem('uuid');
-
+    localStorage.removeItem('auth_token');
     this.router.navigate(['/home']);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return localStorage.getItem('auth_token');
   }
 
-  
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
 
-     obtenerUsuarios(): Observable<Combo[]> {
-    return this.http.get<Combo[]>(`${this.apiusuario}/activos`);
+  // USUARIOS
+  obtenerUsuarioLogueado(id: string): Observable<any> {
+    return this.get<any>(`${this.apiusuario}/info/${id}`);
   }
 
-  obtenerEstudiantes(): Observable<Estudiantes[]> {
-    return this.http.get<Estudiantes[]>(`${this.baseUrlP}/alumnos`);
+  obtenerUsuarios(): Observable<any[]> {
+    return this.get<any[]>(`${this.apiusuario}/activos`);
   }
 
-
-  crearEstudiante(estudiante: Estudiantes): Observable<Estudiantes> {
-    return this.http.post<Estudiantes>(`${this.apiusuario}/alumno`, estudiante);
+  // CARRERAS
+  crearCarrera(carrera: any): Observable<any> {
+    return this.post<any>(`${this.baseUrlc}`, carrera);
   }
 
-  actualizarEstudiante(id: string, estudiante: Estudiantes): Observable<Estudiantes> {
-    return this.http.put<Estudiantes>(`${this.baseUrlP}/alumno/${id}`, estudiante);
+  actualizarEstatus(id: string, estatus: string): Observable<any> {
+    const url = `${this.baseUrlc}/${id}/estatus?estatus=${estatus}`;
+    return this.patch(url, {});
   }
 
-
-
-  obtenerEmpleado(): Observable<EmpleadoA[]> {
-    return this.http.get<EmpleadoA[]>(`${this.baseUrlP}`);
+  actualizarCarrera(id: string, carrera: any): Observable<any> {
+    return this.put<any>(`${this.baseUrlc}/${id}`, carrera);
   }
 
-
-  crearempleado(empleado: EmpleadoA): Observable<EmpleadoA> {
-    return this.http.post<EmpleadoA>(`${this.apiusuario}/empleado`, empleado);
+  obtenerCarreras(): Observable<any[]> {
+    return this.get<any[]>(this.baseUrlc);
   }
 
-  actualizarempleado(id: string, empleado: EmpleadoA): Observable<EmpleadoA> {
-    return this.http.put<EmpleadoA>(`${this.baseUrlP}/empleado/${id}`, empleado);
+  obtenerCarrerasA(): Observable<any[]> {
+    return this.get<any[]>(`${this.baseUrlc}/activosC`);
   }
 
- obtenerprofesor(): Observable<EmpleadoA[]> {
-    return this.http.get<EmpleadoA[]>(`${this.baseUrlP}/profesores`);
+  obtenerCarreraPorId(id: string): Observable<any> {
+    return this.get<any>(`${this.baseUrlc}/${id}`);
   }
 
-
-  crearprofesor(empleado: EmpleadoA): Observable<EmpleadoA> {
-    return this.http.post<EmpleadoA>(`${this.apiusuario}/profesor`, empleado);
+  // ESTUDIANTES
+  obtenerEstudiantes(): Observable<any[]> {
+    return this.get<any[]>(`${this.baseUrlP}/alumnos`);
   }
 
-  actualizarprofesor(id: string, empleado: EmpleadoA): Observable<EmpleadoA> {
-    return this.http.put<EmpleadoA>(`${this.baseUrlP}/profesor/${id}`, empleado);
+  crearEstudiante(estudiante: any): Observable<any> {
+    return this.post<any>(`${this.apiusuario}/alumno`, estudiante);
   }
 
-
-  obtenerCategorias(): Observable<Categoria[]> {
-    return this.http.get<Categoria[]>(this.baseUrlC);
+  actualizarEstudiante(id: string, estudiante: any): Observable<any> {
+    return this.put<any>(`${this.baseUrlP}/alumno/${id}`, estudiante);
   }
 
-    obtenerPrestamos(): Observable<Prestamo[]> {
-    return this.http.get<Prestamo[]>(this.baseUrP);
+  // EMPLEADOS
+  obtenerEmpleado(): Observable<any[]> {
+    return this.get<any[]>(`${this.baseUrlP}`);
   }
 
-  crearCategoria(categoria: Partial<Categoria>): Observable<Categoria> {
-    return this.http.post<Categoria>(this.baseUrlC, categoria);
+  crearempleado(empleado: any): Observable<any> {
+    return this.post<any>(`${this.apiusuario}/empleado`, empleado);
   }
 
-  actualizarCategoria(id: string, categoria: Partial<Categoria>): Observable<Categoria> {
-    return this.http.put<Categoria>(`${this.baseUrlC}/${id}`, categoria);
-  }
- registrarLibro(libro: any): Observable<any> {
-    return this.http.post(`${this.baseUrlLI}`, libro);
+  actualizarempleado(id: string, empleado: any): Observable<any> {
+    return this.put<any>(`${this.baseUrlP}/empleado/${id}`, empleado);
   }
 
- actualizarLibro(id: string, payload: any) {
-  return this.http.put(`${this.baseUrlLI}/${id}`, payload);
-}
-
-   obtenerLibrosA(): Observable<Combo[]> {
-    return this.http.get<Combo[]>(`${this.baseUrlLI}/activosl`);
+  // PROFESORES
+  obtenerprofesor(): Observable<any[]> {
+    return this.get<any[]>(`${this.baseUrlP}/profesores`);
   }
 
-   obtenerLibros(): Observable<Libros[]> {
-    return this.http.get<Libros[]>(this.baseUrlLI);
+  crearprofesor(empleado: any): Observable<any> {
+    return this.post<any>(`${this.apiusuario}/profesor`, empleado);
   }
 
-
-    obtenerLibrosM(titulo?: string): Observable<LibroAc[]> {
-  let params = new HttpParams();
-
-  if (titulo && titulo.trim() !== '') {
-    params = params.set('titulo', titulo.trim());
+  actualizarprofesor(id: string, empleado: any): Observable<any> {
+    return this.put<any>(`${this.baseUrlP}/profesor/${id}`, empleado);
   }
 
-  return this.http.get<LibroAc[]>(`${this.baseUrlLI}/LibrosActivos`, { params });
-}
-
-
-  obtenerAutores(): Observable<Autor[]> {
-    return this.http.get<Autor[]>(this.baseUrlAu);
-  }
- 
-  crearAutor(autor: Autor): Observable<Autor> {
-    return this.http.post<Autor>(this.baseUrlAu, autor);
-  }
-  actualizarAutor(id: string, autor: Autor): Observable<Autor> {
-    return this.http.put<Autor>(`${this.baseUrlAu}/${id}`, autor);
+  // CATEGORÍAS
+  obtenerCategorias(): Observable<any[]> {
+    return this.get<any[]>(this.baseUrlC);
   }
 
-
-  Apartar(data: PrestamoCre): Observable<PrestamoRespuesta> {
-    return this.http.post<PrestamoRespuesta>( `${this.apiUrl}/apartar`, data);
+  crearCategoria(categoria: Partial<any>): Observable<any> {
+    return this.post<any>(this.baseUrlC, categoria);
   }
 
-   getSancion(id:any): Observable<any> {
-    return this.http.get<any>( `${this.apiUrl}/info/${id}`);
+  actualizarCategoria(id: string, categoria: Partial<any>): Observable<any> {
+    return this.put<any>(`${this.baseUrlC}/${id}`, categoria);
   }
 
-   PrestamosUsuarios(usuarioId: string): Observable<PrestamoUsuario[]> {
-    return this.http.get<PrestamoUsuario[]>(`${this.apiUrl}/usuario/${usuarioId}`);
+  // LIBROS
+  registrarLibro(libro: any): Observable<any> {
+    return this.post(`${this.baseUrlLI}`, libro);
+  }
+
+  actualizarLibro(id: string, payload: any) {
+    return this.put(`${this.baseUrlLI}/${id}`, payload);
+  }
+
+  obtenerLibrosA(): Observable<any[]> {
+    return this.get<any[]>(`${this.baseUrlLI}/activosl`);
+  }
+
+  obtenerLibros(): Observable<any[]> {
+    return this.get<any[]>(this.baseUrlLI);
+  }
+
+  obtenerLibrosM(titulo?: string): Observable<any[]> {
+    let params = new HttpParams();
+    if (titulo && titulo.trim() !== '') {
+      params = params.set('titulo', titulo.trim());
+    }
+    return this.get<any[]>(`${this.baseUrlLI}/LibrosActivos`, params);
+  }
+
+  // AUTORES
+  obtenerAutores(): Observable<any[]> {
+    return this.get<any[]>(this.baseUrlAu);
+  }
+
+  crearAutor(autor: any): Observable<any> {
+    return this.post<any>(this.baseUrlAu, autor);
+  }
+
+  actualizarAutor(id: string, autor: any): Observable<any> {
+    return this.put<any>(`${this.baseUrlAu}/${id}`, autor);
+  }
+
+  // PRÉSTAMOS
+  obtenerPrestamos(): Observable<any[]> {
+    return this.get<any[]>(this.baseUrP);
+  }
+
+  Apartar(data: any): Observable<any> {
+    return this.post<any>(`${this.apiUrl}/apartar`, data);
+  }
+
+  getSancion(id: any): Observable<any> {
+    return this.get<any>(`${this.apiUrl}/info/${id}`);
+  }
+
+  PrestamosUsuarios(usuarioId: string): Observable<any[]> {
+    return this.get<any[]>(`${this.apiUrl}/usuario/${usuarioId}`);
   }
 
   RegresarVencido(prestamoId: string, motivo: string): Observable<any[]> {
-  const params = new HttpParams().set('motivo', motivo);
+    const params = new HttpParams().set('motivo', motivo);
+    
+    if (this.isNative()) {
+      const options: HttpOptions = {
+        url: `${this.apiUrl}/actualizar-vencido/${prestamoId}`,
+        headers: this.getHeaders(),
+        params: { motivo }
+      };
 
-  return this.http.post<any[]>(
-    `${this.apiUrl}/actualizar-vencido/${prestamoId}`, 
-    {}, 
-    { params } 
-  );
-}
-
-
-     Confirmar(usuarioId: string): Observable<PrestamoUsuario[]> {
-    return this.http.put<PrestamoUsuario[]>(`${this.apiUrl}/confirmar-apartado/${usuarioId}`, null);
+      return from(CapacitorHttp.post(options)).pipe(
+        map((response: HttpResponse) => response.data as any[])
+      );
+    } else {
+      return this.http.post<any[]>(
+        `${this.apiUrl}/actualizar-vencido/${prestamoId}`, 
+        {}, 
+        { params }
+      );
+    }
   }
-cancelar(usuarioId: string): Observable<PrestamoUsuario[]> {
-    return this.http.put<PrestamoUsuario[]>(`${this.apiUrl}/cancelar-prestamo/${usuarioId}`, null);
-}
 
-  registrarPrestamo(data: PrestamoCre): Observable<PrestamoRespuesta> {
-    return this.http.post<PrestamoRespuesta>( `${this.apiUrl}/crear`, data);
+  Confirmar(usuarioId: string): Observable<any[]> {
+    return this.put<any[]>(`${this.apiUrl}/confirmar-apartado/${usuarioId}`, null);
   }
 
-  devolverPrestamo(idPrestamo: string,  cantidadDevuelta: number) {
-  const url = `${this.apiUrl}/${idPrestamo}/devolver`;
+  cancelar(usuarioId: string): Observable<any[]> {
+    return this.put<any[]>(`${this.apiUrl}/cancelar-prestamo/${usuarioId}`, null);
+  }
 
-  const params = {
-    cantidad: cantidadDevuelta,
-   
-  };
+  registrarPrestamo(data: any): Observable<any> {
+    return this.post<any>(`${this.apiUrl}/crear`, data);
+  }
 
-  return this.http.post(url, null, { params });
-}
+  devolverPrestamo(idPrestamo: string, cantidadDevuelta: string) {
+    const params = new HttpParams().set('cantidad', cantidadDevuelta);
+    
+    if (this.isNative()) {
+      const options: HttpOptions = {
+        url: `${this.apiUrl}/${idPrestamo}/devolver`,
+        headers: this.getHeaders(),
+        params: { cantidad: cantidadDevuelta }
+      };
 
- buscarPrestamos(
+      return from(CapacitorHttp.post(options)).pipe(
+        map((response: HttpResponse) => response.data)
+      );
+    } else {
+      return this.http.post(`${this.apiUrl}/${idPrestamo}/devolver`, null, { params });
+    }
+  }
+
+  buscarPrestamos(
     fechaPrestamo: string,
     usuarioNombre: string,
     libroTitulo: string,
-    
     estatus: string = 'VENCIDO'
   ): Observable<any> {
-
     let params = new HttpParams();
-
     if (fechaPrestamo) params = params.set('fechaPrestamo', fechaPrestamo);
     if (usuarioNombre) params = params.set('usuarioNombre', usuarioNombre);
     if (libroTitulo) params = params.set('libroTitulo', libroTitulo);
     if (estatus) params = params.set('estatus', estatus);
 
-    return this.http.get(`${this.apiUrl}/filtrar`, { params });
+    return this.get(`${this.apiUrl}/filtrar`, params);
   }
 
-   obtenerTop10Fechas(): Observable<PrestamoFecha[]> {
-    return this.http.get<PrestamoFecha[]>(`${this.apiUrl}/top10-fechas`);
+  obtenerTop10Fechas(): Observable<any[]> {
+    return this.get<any[]>(`${this.apiUrl}/top10-fechas`);
   }
 
-   obtenerTop10Libros(): Observable<TopLibros[]> {
-    return this.http.get<TopLibros[]>(`${this.apiUrl}/top10-libros`);
+  obtenerTop10Libros(): Observable<any[]> {
+    return this.get<any[]>(`${this.apiUrl}/top10-libros`);
   }
 
-
+  // UTILIDADES
   Usuario(): string {
     return localStorage.getItem('uuid') || '';
   }
@@ -290,29 +406,26 @@ cancelar(usuarioId: string): Observable<PrestamoUsuario[]> {
     return roles ? JSON.parse(roles) : [];
   }
 
-
   getTokenExpirationDate(token: string): Date | null {
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    if (!payload.exp) return null;
-
-    const date = new Date(0);
-    date.setUTCSeconds(payload.exp);
-    return date;
-  } catch {
-    return null;
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      if (!payload.exp) return null;
+      const date = new Date(0);
+      date.setUTCSeconds(payload.exp);
+      return date;
+    } catch {
+      return null;
+    }
   }
-}
 
   isTokenExpired(): boolean {
-  const token = this.getToken();
-  if (!token) return true;
+    const token = this.getToken();
+    if (!token) return true;
+    const expirationDate = this.getTokenExpirationDate(token);
+    return !expirationDate || expirationDate < new Date();
+  }
 
-  const expirationDate = this.getTokenExpirationDate(token);
-  return !expirationDate || expirationDate < new Date();
-}
-
-isAuthenticated(): boolean {
-  return !!this.getToken() && !this.isTokenExpired();
-}
+  isAuthenticated(): boolean {
+    return !!this.getToken() && !this.isTokenExpired();
+  }
 }

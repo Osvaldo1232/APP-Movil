@@ -1,4 +1,3 @@
-
 * {
   margin: 0;
   padding: 0;
@@ -11,7 +10,7 @@ body, html {
   background-color: #f4f4f4;
 }
 
-
+/* ---------- HEADER ---------- */
 header {
   width: 100%;
   height: 60px;
@@ -24,7 +23,7 @@ header {
   font-size: 18px;
   font-weight: bold;
   position: fixed;
-  top: 0;
+  top: 20px; /* BAJADO 20px */
   left: 0;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -73,21 +72,24 @@ header {
   font-size: 16px;
 }
 
-
+/* ---------- LAYOUT ---------- */
 .layout {
   display: flex;
   height: calc(100vh - 60px);
-  margin-top: 60px;
+  margin-top: 80px;   /* AJUSTADO: 60px + 20px del header */
   overflow: hidden;
 }
 
+/* ---------- SIDEBAR ---------- */
 .sidebar {
   width: 250px;
   background-color: #2d0404;
   color: white;
   transition: transform 0.3s ease-in-out;
   flex-shrink: 0;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 80px); /* AJUSTADO */
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .sidebar ul {
@@ -110,7 +112,7 @@ header {
   background-color: #530909;
 }
 
-
+/* ---------- PROFILE ---------- */
 .profile-section {
   text-align: center;
   padding: 30px 10px 20px;
@@ -140,7 +142,7 @@ header {
   margin: 0;
 }
 
-
+/* ---------- MAIN CONTENT ---------- */
 .main-content {
   flex: 1;
   background-color: #f4f4f4;
@@ -157,10 +159,10 @@ header {
   width: 100%;
 }
 
-
+/* ---------- FLOATING BUTTON ---------- */
 .floating-button {
   position: fixed;
-  top: 70px;
+  top: 90px; /* 70px + 20px del header */
   left: 20px;
   z-index: 1100;
   background-color: #530909;
@@ -172,20 +174,24 @@ header {
   border-radius: 4px;
 }
 
+/* ---------- RESPONSIVE ---------- */
 @media (max-width: 768px) {
+
   header {
     font-size: 16px;
     padding: 0 10px;
+    top: 20px; /* mantener la misma separación */
   }
 
   .header-right {
     font-size: 14px;
   }
 
+  /* Sidebar en móviles */
   .sidebar {
     position: fixed;
-    height: 100vh;
-    top: 60px;
+    height: calc(100vh - 80px); /* 60px + 20px */
+    top: 80px !important;       /* BAJADO correctamente */
     left: 0;
     transform: translateX(-100%);
     z-index: 1200;
@@ -201,7 +207,7 @@ header {
 
   .overlay {
     position: fixed;
-    top: 60px;
+    top: 80px; /* Ajustado */
     left: 0;
     right: 0;
     bottom: 0;
@@ -216,16 +222,4 @@ header {
     opacity: 1;
     pointer-events: auto;
   }
-}
-
-
-.sidebar {
-  width: 250px;
-  background-color: #2d0404;
-  color: white;
-  transition: transform 0.3s ease-in-out;
-  flex-shrink: 0;
-  height: calc(100vh - 60px); 
-  overflow-y: auto;          
-  overflow-x: hidden;
 }
