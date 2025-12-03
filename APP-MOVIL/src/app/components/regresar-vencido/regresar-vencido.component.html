@@ -1,0 +1,58 @@
+
+<div class="modal-container">
+  <ion-button fill="clear" class="btn-cerrar" (click)="cerrarModal()">
+    <ion-icon slot="icon-only" name="close"></ion-icon>
+  </ion-button>
+
+  <h2 class="modal-titulo">Regresar Prestamo Vencido</h2>
+
+  <form class="formulario">
+
+  
+
+    <div class="form-group">
+      <ion-label>Usuario</ion-label>
+      <ion-input
+        [value]="carrera.nombreUsuario+' '+ carrera.apellidoPaterno+' '+ carrera.apellidoPaterno"
+        name="nombre"
+        type="text"
+        placeholder="Nombre"
+        class="custom-input"
+      ></ion-input>
+    </div>
+
+    <div class="form-group">
+      <ion-label>Título Libro</ion-label>
+      <ion-input
+        [(ngModel)]="carrera.libroTitulo"
+        name="titulo"
+        type="text"
+        placeholder="Título"
+        class="custom-input"
+      ></ion-input>
+    </div>
+
+
+       <div class="form-group">
+      <ion-label>Sanción</ion-label>
+      <ion-input
+        [(ngModel)]="sancion"
+        name="sancion"
+        type="text"
+        placeholder="Sanción"
+        class="custom-input"
+      ></ion-input>
+    </div>
+
+
+    <div class="botones-container">
+      <ion-button fill="outline" class="btn-cancelar" (click)="cerrarModal()">
+        Cancelar
+      </ion-button>
+
+      <ion-button fill="solid" class="btn-aceptar" (click)="aceptar()">
+        Aceptar
+      </ion-button>
+    </div>
+  </form>
+</div>

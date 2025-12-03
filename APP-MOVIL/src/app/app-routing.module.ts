@@ -69,6 +69,10 @@ const routes: Routes = [
     path: 'empleado',
     loadChildren: () => import('./empleado/empleado.module').then( m => m.EmpleadoPageModule)
   },
+  {
+    path: 'docentes',
+    loadChildren: () => import('./docentes/docentes.module').then( m => m.DocentesPageModule)
+  },
     {
       path: '',
       redirectTo: 'libros',
@@ -140,6 +144,7 @@ const routes: Routes = [
     path: 'dashboardempleado',
     loadChildren: () => import('./dashboardempleado/dashboardempleado.module').then( m => m.DashboardempleadoPageModule)
   },
+  
    
   
  

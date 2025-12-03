@@ -29,6 +29,10 @@ export class LoginPage {
         case 'EMPLEADO':
           this.router.navigate(['/dashboardempleado']);
           break;
+
+          case 'MAESTRO':
+          this.router.navigate(['/estudiante']);
+          break;
         case 'ALUMNO':
           this.router.navigate(['/estudiante']);
           break;
@@ -38,7 +42,6 @@ export class LoginPage {
       }
     },
     error: (err) => {
-      console.error(err);
       this.alert.show(
         'Usuario o contraseña incorrectos. Verifica tus datos.',
         'danger',

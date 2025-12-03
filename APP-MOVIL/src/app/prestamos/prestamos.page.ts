@@ -7,6 +7,7 @@ import { ServiciosApi } from '../Servicios/servicios-api';
 import { LoadingService } from '../shared/loading-service';
 import { AlertService } from '../shared/alert-service';
 import { AlertaConfirmacionService } from '../shared/alerta-confirmacion-service';
+import { VerSancionComponent } from '../components/ver-sancion/ver-sancion.component';
 
 @Component({
   selector: 'app-prestamos',
@@ -227,5 +228,20 @@ export class PrestamosPage implements OnInit {
         this.loadingService.hide();
       }
     });
+  }
+
+   async verSancion(sancion: any) {
+    const modal = await this.modalController.create({
+      component: VerSancionComponent,
+      componentProps: { sancion: { ...sancion } }, 
+      cssClass: 'modal-registrar-categoria',
+      backdropDismiss: false,
+    });
+  
+    await modal.present();
+    const { data } = await modal.onWillDismiss();
+  
+    if (data && data.sancion) {
+    }
   }
 }

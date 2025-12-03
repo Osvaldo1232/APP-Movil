@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+
+
 import { EmpleadoA, Estudiante, Estudiantes } from '../modelos/LoginResponse';
 import { ModalController, ToastController } from '@ionic/angular';
 import { ServiciosApi } from '../Servicios/servicios-api';
 import { LoadingService } from '../shared/loading-service';
-import { RegistrarEmpleadoComponent } from '../components/registrar-empleado/registrar-empleado.component';
+import { NuevoDocenteComponent } from '../components/nuevo-docente/nuevo-docente.component';
 
 @Component({
-  selector: 'app-empleado',
-  templateUrl: './empleado.page.html',
-  styleUrls: ['./empleado.page.scss'],
-  standalone:false
-
+  selector: 'app-docentes',
+  templateUrl: './docentes.page.html',
+  styleUrls: ['./docentes.page.scss'],
+    standalone:false
 })
-export class EmpleadoPage implements OnInit {
+export class DocentesPage implements OnInit {
 
-  
+ 
     estudiantes: EmpleadoA[] = [];
     estudiantesFiltrados: EmpleadoA[] = [];
     busqueda: string = '';
@@ -37,7 +38,7 @@ export class EmpleadoPage implements OnInit {
   
     cargarEstudiantes() {
       this.loadingService.show();
-      this.servicio.obtenerEmpleado().subscribe({
+      this.servicio.obtenerprofesor().subscribe({
         next: (data) => {
           this.estudiantes = data;
           this.estudiantesFiltrados = [...data];
@@ -104,7 +105,7 @@ export class EmpleadoPage implements OnInit {
   
     async agregarNuevo() {
       const modal = await this.modalController.create({
-        component: RegistrarEmpleadoComponent,
+        component: NuevoDocenteComponent,
         cssClass: 'modal-registrar-estudiante',
         backdropDismiss: false,
       });
@@ -122,7 +123,7 @@ export class EmpleadoPage implements OnInit {
     async editarEstudiante(empleado: EmpleadoA) {
 
       const modal = await this.modalController.create({
-        component: RegistrarEmpleadoComponent,
+        component: NuevoDocenteComponent,
         componentProps: { empleado: { ...empleado } },
         cssClass: 'modal-registrar-estudiante',
         backdropDismiss: false,
@@ -136,5 +137,6 @@ export class EmpleadoPage implements OnInit {
       }
     }
   
+
 
 }

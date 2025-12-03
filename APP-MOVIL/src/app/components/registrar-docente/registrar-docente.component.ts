@@ -42,7 +42,6 @@ export class RegistrarDocenteComponent  implements OnInit {
         this.carreras = data;
       },
       error: (err) => {
-        console.error('Error al cargar carreras:', err);
         this.alertService.show('No se pudieron cargar las carreras', 'danger', 'Error');
       }
     });

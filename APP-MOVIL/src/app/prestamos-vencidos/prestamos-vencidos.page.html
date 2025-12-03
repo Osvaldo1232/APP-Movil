@@ -54,7 +54,11 @@
                 <p><strong>Fecha Préstamo:</strong> {{ prestamo.fechaPrestamo }}</p>
                 <p><strong>Fecha Devolución:</strong> {{ prestamo.fechaDevolucion }}</p>
               </div>
-
+<ion-button expand="block" class="btn-devolver"
+                (click)="devolverPrestamo(prestamo)">
+      <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+      Devolver Libro
+    </ion-button>
             </ion-card-content>
           </ion-card>
         </ion-col>

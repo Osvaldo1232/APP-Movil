@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingService } from '../shared/loading-service';
 import { ServiciosApi } from '../Servicios/servicios-api';
+import { ModalController, ToastController } from '@ionic/angular';
+import { RegresarVencidoComponent } from '../components/regresar-vencido/regresar-vencido.component';
 
 @Component({
   selector: 'app-prestamos-vencidos',
@@ -31,7 +33,9 @@ export class PrestamosVencidosPage implements OnInit {
 
   constructor(
     private prestamosService: ServiciosApi,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+        private modalController: ModalController,
+        private toastController: ToastController,
   ) {}
 
   ngOnInit() {
@@ -71,10 +75,36 @@ export class PrestamosVencidosPage implements OnInit {
       error: (err) => {
         this.loadingService.hide();
 
-        console.error('Error al cargar préstamos vencidos:', err);
       }
     });
   }
+
+
+
+
+ async devolverPrestamo(carrera: any) {
+  const modal = await this.modalController.create({
+    component: RegresarVencidoComponent,
+    componentProps: { 
+      carrera: { ...carrera, activo: carrera.estatus === 'ACTIVO' } 
+    },
+    cssClass: 'modal-registrar-carrera',
+    backdropDismiss: false
+  });
+
+  await modal.present();
+
+  const { data } = await modal.onWillDismiss();
+
+  if (data?.actualizado) {
+    this.buscarPrestamos();
+
+   
+  }
+}
+
+
+
 
   limpiarFiltros() {
     this.fechaPrestamo = '';

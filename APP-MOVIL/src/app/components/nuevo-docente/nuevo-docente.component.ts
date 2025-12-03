@@ -8,14 +8,15 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 @Component({
-  selector: 'app-registrar-empleado',
-  templateUrl: './registrar-empleado.component.html',
-  styleUrls: ['./registrar-empleado.component.scss'],
+  selector: 'app-nuevo-docente',
+  templateUrl: './nuevo-docente.component.html',
+  styleUrls: ['./nuevo-docente.component.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, IonicModule],
 })
-export class RegistrarEmpleadoComponent implements OnInit {
+export class NuevoDocenteComponent  implements OnInit {
 
+  
   @Input() empleado: EmpleadoA = {
     id: undefined as any,
     nombre: '',
@@ -75,23 +76,23 @@ export class RegistrarEmpleadoComponent implements OnInit {
       this.empleadosService.actualizarempleado(this.empleado.id, empleadoPayload)
         .subscribe({
          next: (resp) => {
-            this.alertService.show('El empleado se actualizó correctamente', 'success', 'Éxito');
+            this.alertService.show('El docente se actualizó correctamente', 'success', 'Éxito');
             this.modalController.dismiss({ empleado: resp });
           },
           error: (err) => {
-           this.alertService.show('El empleado se actualizó correctamente', 'success', 'Éxito');
+           this.alertService.show('El docente se actualizó correctamente', 'success', 'Éxito');
             this.modalController.dismiss({ empleado: true });
           }
         });
     } else {
-      this.empleadosService.crearempleado(empleadoPayload)
+      this.empleadosService.crearprofesor(empleadoPayload)
         .subscribe({
           next: (resp: any) => {
             if (typeof resp === 'string') {
               this.alertService.show(resp, 'success', 'Éxito');
               this.modalController.dismiss({ empleado: true });
             } else {
-              const msg = resp.message || 'El empleado se registró correctamente';
+              const msg = resp.message || 'El docente se registró correctamente';
               this.alertService.show(msg, 'success', 'Éxito');
               const enviado = resp.empleado || resp || true;
               this.modalController.dismiss({ empleado: enviado });
@@ -104,4 +105,5 @@ export class RegistrarEmpleadoComponent implements OnInit {
         });
     }
   }
+
 }

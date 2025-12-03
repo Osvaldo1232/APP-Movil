@@ -62,12 +62,15 @@
                  (click)="cambiarEstatus(p, $event)">
               </ion-icon>
 
-                <ion-icon *ngIf="p.estatus==='APARTADO'"
-                name="close-circle-outline"
-                 title="Cancelar apartado"
-                style="cursor:pointer; margin-right: 10px; font-size: 22px;"
-                 (click)="cancelar(p, $event)">
-              </ion-icon>
+
+              <ion-icon  *ngIf="p.estatus==='DEVUELTO_TARDIO'"
+           name="warning-outline"
+           title="Cancelar apartado"
+           style="cursor:pointer; margin-right: 10px; font-size: 22px;"
+           (click)="verSancion(p)">
+</ion-icon>
+
+               
             </td>
           </tr>
         </tbody>

@@ -5,6 +5,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { LoadingService } from '../shared/loading-service';
 import { AlertaConfirmacionService } from '../shared/alerta-confirmacion-service';
 import { AlertService } from '../shared/alert-service';
+import { VerSancionComponent } from '../components/ver-sancion/ver-sancion.component';
 
 @Component({
   selector: 'app-historial-libros',
@@ -149,7 +150,20 @@ export class HistorialLibrosPage implements OnInit {
     });
   }
 
- 
+  async verSancion(sancion: any) {
+     const modal = await this.modalController.create({
+       component: VerSancionComponent,
+       componentProps: { sancion: { ...sancion } }, 
+       cssClass: 'modal-registrar-categoria',
+       backdropDismiss: false,
+     });
+   
+     await modal.present();
+     const { data } = await modal.onWillDismiss();
+   
+     if (data && data.sancion) {
+     }
+   }
   
 
 }

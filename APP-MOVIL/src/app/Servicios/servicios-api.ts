@@ -140,7 +140,18 @@ actualizarCarrera(id: string, carrera: Carrera): Observable<Carrera> {
     return this.http.put<EmpleadoA>(`${this.baseUrlP}/empleado/${id}`, empleado);
   }
 
+ obtenerprofesor(): Observable<EmpleadoA[]> {
+    return this.http.get<EmpleadoA[]>(`${this.baseUrlP}/profesores`);
+  }
 
+
+  crearprofesor(empleado: EmpleadoA): Observable<EmpleadoA> {
+    return this.http.post<EmpleadoA>(`${this.apiusuario}/profesor`, empleado);
+  }
+
+  actualizarprofesor(id: string, empleado: EmpleadoA): Observable<EmpleadoA> {
+    return this.http.put<EmpleadoA>(`${this.baseUrlP}/profesor/${id}`, empleado);
+  }
 
 
   obtenerCategorias(): Observable<Categoria[]> {
@@ -202,9 +213,24 @@ actualizarCarrera(id: string, carrera: Carrera): Observable<Carrera> {
     return this.http.post<PrestamoRespuesta>( `${this.apiUrl}/apartar`, data);
   }
 
+   getSancion(id:any): Observable<any> {
+    return this.http.get<any>( `${this.apiUrl}/info/${id}`);
+  }
+
    PrestamosUsuarios(usuarioId: string): Observable<PrestamoUsuario[]> {
     return this.http.get<PrestamoUsuario[]>(`${this.apiUrl}/usuario/${usuarioId}`);
   }
+
+  RegresarVencido(prestamoId: string, motivo: string): Observable<any[]> {
+  const params = new HttpParams().set('motivo', motivo);
+
+  return this.http.post<any[]>(
+    `${this.apiUrl}/actualizar-vencido/${prestamoId}`, 
+    {}, 
+    { params } 
+  );
+}
+
 
      Confirmar(usuarioId: string): Observable<PrestamoUsuario[]> {
     return this.http.put<PrestamoUsuario[]>(`${this.apiUrl}/confirmar-apartado/${usuarioId}`, null);
