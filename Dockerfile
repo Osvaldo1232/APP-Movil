@@ -1,20 +1,32 @@
-# Etapa 1: Build Angular
+# ==============================
+# Etapa 1: Build Ionic Angular
+# ==============================
 FROM node:20 AS build
 
 WORKDIR /app
 
+# Copiar package.json y package-lock.json
 COPY package*.json ./
+
+# Instalar dependencias
 RUN npm install
 
+# Copiar el resto del proyecto
 COPY . .
-RUN npx ng build --configuration=production
 
-# Etapa 2: Servir con NGINX
+# Build de Ionic (genera la carpeta www)
+RUN npx ionic build --prod
+
+
+# ==============================
+# Etapa 2: Servir con Nginx
+# ==============================
 FROM nginx:alpine
 
-# Copia el contenido interno de dist, sin importar el nombre del proyecto
-COPY --from=build /app/dist/* /usr/share/nginx/html
+# Copiar archivos generados en /www
+COPY --from=build /app/www /usr/share/nginx/html
 
+# Copiar config de nginx
 COPY default.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 8000
