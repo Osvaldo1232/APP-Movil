@@ -13,18 +13,18 @@ export class ServiciosApi {
 
 
   
- private baseUrl = 'http://localhost:8000';
-private apiUrl = 'http://localhost:8000/prestamos';
- private baseUrP = 'http://localhost:8000/prestamos/detalles';
+ private baseUrl = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app';
+private apiUrl = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/prestamos';
+ private baseUrP = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/prestamos/detalles';
 
- private baseUrlLI = 'http://localhost:8000/libros';
-  private apiusuario = 'http://localhost:8000/usuarios';
- private baseUrlc = 'http://localhost:8000/carreras';
- private baseUrlA = 'http://localhost:8000/alumnos';
- private baseUrlP = 'http://localhost:8000/Profesores';
+ private baseUrlLI = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/libros';
+  private apiusuario = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/usuarios';
+ private baseUrlc = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/carreras';
+ private baseUrlA = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/alumnos';
+ private baseUrlP = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/Profesores';
 
- private baseUrlC = 'http://localhost:8000/categorias';
- private baseUrlAu = 'http://localhost:8000/autores';
+ private baseUrlC = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/categorias';
+ private baseUrlAu = 'https://unknown-corrie-utsemintegradora-b23357e2.koyeb.app/autores';
   constructor(private http: HttpClient, private router: Router) { }
 
 obtenerUsuarioLogueado(id: string): Observable<UsuarioInfo> {
