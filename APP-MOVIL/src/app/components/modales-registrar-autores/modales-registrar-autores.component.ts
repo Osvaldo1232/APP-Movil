@@ -39,7 +39,6 @@ export class ModalesRegistrarAutoresComponent implements OnInit {
     if (
       !this.autor.nombre.trim() ||
       !this.autor.apellidoPaterno.trim() ||
-      !this.autor.apellidoMaterno.trim() ||
       !this.autor.nacionalidad.trim()
     ) {
       const toast = await this.toastController.create({

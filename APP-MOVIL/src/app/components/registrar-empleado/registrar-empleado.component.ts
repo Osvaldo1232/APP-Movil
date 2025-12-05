@@ -87,6 +87,11 @@ export class RegistrarEmpleadoComponent implements OnInit {
       this.empleadosService.crearempleado(empleadoPayload)
         .subscribe({
           next: (resp: any) => {
+
+              if (resp.codigo === 1000) {
+        this.alertService.show(resp.mensaje, 'danger', 'Error');
+        return; 
+      }
             if (typeof resp === 'string') {
               this.alertService.show(resp, 'success', 'Éxito');
               this.modalController.dismiss({ empleado: true });

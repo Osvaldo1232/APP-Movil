@@ -10,6 +10,7 @@
   <h2 class="modal-titulo">Registrar Empleado</h2>
 
   <form class="formulario">
+      <ion-label>Nombre</ion-label>
 
     <div class="form-group">
       <ion-input
@@ -22,6 +23,8 @@
     </div>
 
     <div class="form-group">
+      <ion-label>Apellido Paterno</ion-label>
+
       <ion-input
         [(ngModel)]="empleado.apellidoPaterno"
         name="apellidoPaterno"
@@ -32,6 +35,8 @@
     </div>
 
     <div class="form-group">
+      <ion-label>Apellido Materno</ion-label>
+
       <ion-input
         [(ngModel)]="empleado.apellidoMaterno"
         name="apellidoMaterno"
@@ -42,6 +47,8 @@
     </div>
 
     <div class="form-group">
+      <ion-label>Correo</ion-label>
+
       <ion-input
         [(ngModel)]="empleado.email"
         name="email"
@@ -52,6 +59,8 @@
     </div>
 
     <div *ngIf="activar" class="form-group">
+      <ion-label>Contraseño</ion-label>
+
       <ion-input
         [(ngModel)]="empleado.password"
         name="password"
@@ -62,6 +71,9 @@
     </div>
 
     <div class="form-group">
+
+      <ion-label>Fecha de Nacimiento</ion-label>
+
       <ion-input
         [(ngModel)]="empleado.fechaNacimiento"
         name="fechaNacimiento"
@@ -71,6 +83,9 @@
     </div>
 
     <div class="form-group">
+
+      <ion-label>Sexo</ion-label>
+
       <ion-select
         [(ngModel)]="empleado.sexo"
         name="sexo"
@@ -85,6 +100,8 @@
     </div>
 
     <div class="form-group">
+      <ion-label>Telefono</ion-label>
+
       <ion-input
         [(ngModel)]="empleado.telefono"
         name="telefono"
@@ -95,6 +112,8 @@
     </div>
 
     <div class="form-group">
+      <ion-label>Clave Presupuestal</ion-label>
+
       <ion-input
         [(ngModel)]="empleado.clavePresupuestal"
         name="clavePresupuestal"

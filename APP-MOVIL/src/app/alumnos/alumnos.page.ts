@@ -114,7 +114,8 @@ export class AlumnosPage implements OnInit {
     const { data } = await modal.onWillDismiss();
 
     if (data && data.estudiante) {
-      this.estudiantes.push(data.estudiante);
+      this.cargarEstudiantes();
+     
       this.buscar();
     }
   }

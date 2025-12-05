@@ -6,6 +6,10 @@
   padding: 0;
   position: relative;
   border-radius: 12px;
+
+
+    max-height: 90vh;
+  overflow-y: auto;
 }
 
 .modal-scroll {

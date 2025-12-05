@@ -96,10 +96,20 @@ activar=true;
       this.estudiantesService.crearEstudiante(estudiantePayload)
         .subscribe({
           next: (resp) => {
+
+
+
+             if (resp.codigo === 1000) {
+        this.alertService.show(resp.mensaje, 'danger', 'Error');
+        return; 
+      }
+            console.log(resp, "resp")
             this.alertService.show('El estudiante se registró correctamente', 'success', 'Éxito');
             this.modalController.dismiss({ estudiante: resp });
           },
           error: (err) => {
+            console.log(err, "err")
+            
             this.alertService.show(err.error.error, 'danger', 'Error');
           }
         });

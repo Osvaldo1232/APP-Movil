@@ -1,4 +1,3 @@
-
 * {
   margin: 0;
   padding: 0;
@@ -11,21 +10,35 @@ body, html {
   background-color: #f4f4f4;
 }
 
+.barra-superior {
+  width: 100%;
+  height: 25px;               
+  background-color: white;    
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1200;
+}
+
 header {
   width: 100%;
   height: 60px;
   background-color: beige;
   color: #2d0404;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   padding: 0 20px;
   font-size: 18px;
   font-weight: bold;
+
   position: fixed;
-  top: 0;
+  top: 25px;    
   left: 0;
-  z-index: 1000;
+  z-index: 1100;
+
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
@@ -45,9 +58,6 @@ header {
   font-size: 26px;
   cursor: pointer;
   color: #2d0404;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: transform 0.2s ease;
 }
 
@@ -72,11 +82,10 @@ header {
   font-size: 16px;
 }
 
-
 .layout {
   display: flex;
-  height: calc(100vh - 60px);
-  margin-top: 60px;
+  height: calc(100vh - 85px); 
+  margin-top: 85px;       
   overflow: hidden;
 }
 
@@ -84,15 +93,21 @@ header {
   width: 250px;
   background-color: #2d0404;
   color: white;
+
   transition: transform 0.3s ease-in-out;
   flex-shrink: 0;
-  height: calc(100vh - 60px);
+
+  height: calc(100vh - 85px);
+  position: fixed;
+  top: 85px;  
+  left: 0;
+
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .sidebar ul {
   list-style: none;
-  padding: 0;
-  margin: 0;
 }
 
 .sidebar ul li a {
@@ -121,7 +136,6 @@ header {
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid white;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   margin-bottom: 10px;
 }
 
@@ -129,21 +143,20 @@ header {
   color: #fff;
   font-weight: bold;
   font-size: 16px;
-  margin: 4px 0 0;
 }
 
 .profile-role {
   color: #ccc;
   font-size: 14px;
-  margin: 0;
 }
 
 .main-content {
   flex: 1;
+  margin-left: 250px; 
   background-color: #f4f4f4;
   padding: 20px;
   overflow-y: auto;
-  transition: all 0.3s ease-in-out;
+  transition: 0.3s ease;
 }
 
 .sidebar-hidden .sidebar {
@@ -151,41 +164,23 @@ header {
 }
 
 .sidebar-hidden .main-content {
-  width: 100%;
+  margin-left: 0;
 }
-
-.floating-button {
-  position: fixed;
-  top: 70px;
-  left: 20px;
-  z-index: 1100;
-  background-color: #530909;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  font-size: 18px;
-  border-radius: 4px;
-}
-
 
 @media (max-width: 768px) {
+
   header {
     font-size: 16px;
     padding: 0 10px;
-  }
-
-  .header-right {
-    font-size: 14px;
+    top: 25px;
   }
 
   .sidebar {
     position: fixed;
-    height: 100vh;
-    top: 60px;
-    left: 0;
+    top: 85px !important;
+    height: calc(100vh - 85px);
     transform: translateX(-100%);
-    z-index: 1200;
+    z-index: 1500;
   }
 
   .sidebar.show {
@@ -193,17 +188,17 @@ header {
   }
 
   .main-content {
-    width: 100%;
+    margin-left: 0;
   }
 
   .overlay {
     position: fixed;
-    top: 60px;
+    top: 85px;
     left: 0;
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 1100;
+    z-index: 1400;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
@@ -213,16 +208,4 @@ header {
     opacity: 1;
     pointer-events: auto;
   }
-}
-
-
-.sidebar {
-  width: 250px;
-  background-color: #2d0404;
-  color: white;
-  transition: transform 0.3s ease-in-out;
-  flex-shrink: 0;
-  height: calc(100vh - 60px); 
-  overflow-y: auto;          
-  overflow-x: hidden;
 }

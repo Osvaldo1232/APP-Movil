@@ -3,6 +3,10 @@
   position: relative;
   background: white;
   min-height: 400px;
+
+
+    max-height: 90vh;
+  overflow-y: auto;
 }
 
 .btn-cerrar {
