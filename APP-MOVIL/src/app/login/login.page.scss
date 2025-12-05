@@ -133,7 +133,7 @@ ion-input {
 
 @media (max-width: 900px) {
   .login-container {
-    flex-direction: column;
+   flex-direction: column-reverse;
     width: 90%;
   }
 

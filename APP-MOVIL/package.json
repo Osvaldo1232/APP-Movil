@@ -5,7 +5,8 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+     "start": "node server.js",
+    "serve": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -29,6 +30,7 @@
     "@capacitor/status-bar": "7.0.3",
     "@ionic/angular": "^8.0.0",
     "chart.js": "^4.5.1",
+    "express": "^5.2.1",
     "html2canvas": "^1.4.1",
     "ionicons": "^7.0.0",
     "jspdf": "^3.0.4",

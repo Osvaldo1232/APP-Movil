@@ -209,3 +209,14 @@ export interface PrestamoUsuario {
   fechaDevolucion: string;
   autores: string[];       
 }
+
+
+export interface LibroVisual {
+  id: string;
+  titulo: string;
+  autores: string[];
+  imagen: string;
+  sinopsis: string;
+  totalCopias: number;
+  copiasDisponibles: number;
+}

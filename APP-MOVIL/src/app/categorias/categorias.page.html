@@ -25,7 +25,10 @@
 
         <tbody>
           <tr *ngFor="let c of categoriasPaginadas; let i = index" [class.par]="i % 2 === 0">
-            <td>{{ c.nombre }}</td>
+            <td class="clickable" style="cursor:pointer; color:blue;" (click)="verLibros(c)">
+  {{ c.nombre }}
+</td>
+
             <td class="acciones">
               <ion-icon name="create-outline" (click)="editarCategoria(c)" style="cursor:pointer; margin-right: 10px;"></ion-icon>
             </td>

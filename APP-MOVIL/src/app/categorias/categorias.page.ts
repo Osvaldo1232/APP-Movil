@@ -4,6 +4,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { LoadingService } from '../shared/loading-service';
 import { ServiciosApi } from '../Servicios/servicios-api';
 import { ModalesRegistrarCategoriaComponent } from '../components/modales-registrar-categoria/modales-registrar-categoria.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-categorias',
@@ -22,6 +23,7 @@ currentPage: number = 1;
 totalPages: number = 1;
 
   constructor(
+    private router: Router,
     private modalController: ModalController,
     private toastController: ToastController,
     private categoriasService: ServiciosApi,
@@ -114,5 +116,10 @@ get categoriasPaginadas() {
   return this.filteredCategorias.slice(start, end);
 }
 
+verLibros(categoria: Categoria) {
+  this.router.navigate(['/admnistrador/libros-visual', categoria.id], {
+    queryParams: { nombre: categoria.nombre }
+  });
+}
 
 }

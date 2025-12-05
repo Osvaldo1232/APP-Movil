@@ -5,6 +5,7 @@ import { Observable, from } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import { Capacitor } from '@capacitor/core';
 import { CapacitorHttp, HttpResponse, HttpOptions } from '@capacitor/core';
+import { LibroVisual } from '../modelos/LoginResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -269,6 +270,10 @@ export class ServiciosApi {
   // LIBROS
   registrarLibro(libro: any): Observable<any> {
     return this.post(`${this.baseUrlLI}`, libro);
+  }
+
+   obtenerLibrosPorCategoria(categoriaId: string): Observable<LibroVisual[]> {
+    return this.http.get<LibroVisual[]>(`${this.baseUrlLI}/categoria/${categoriaId}`);
   }
 
   actualizarLibro(id: string, payload: any) {
